@@ -1,0 +1,99 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: var(--spacing-16) 0;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+}
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-16);
+}
+.logo {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+.logo-short { display: none; }
+.header-nav {
+  display: flex;
+  gap: var(--spacing-8);
+  flex-wrap: wrap;
+}
+.header-nav a {
+  color: var(--body);
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  font-size: 14px;
+}
+.header-nav a:hover {
+  color: var(--primary);
+  background-color: var(--card);
+}
+.header-nav a.active {
+  color: var(--primary-action);
+  background-color: var(--card);
+}
+.header-nav a:focus-visible {
+  outline: 2px solid var(--primary-action);
+  outline-offset: 2px;
+}
+
+.main {
+  min-height: calc(100vh - 160px); /* header + footer approx */
+  padding: var(--spacing-24) 0;
+}
+
+.footer {
+  background-color: var(--dark);
+  color: var(--muted);
+  text-align: center;
+  padding: var(--spacing-16) 0;
+  font-size: var(--font-size-metadata);
+}
+
+.exchange-rate-source {
+  color: inherit;
+  font-size: 11px;
+  text-decoration: underline;
+}
+
+@media (max-width: 960px) {
+  .header-content {
+    flex-wrap: nowrap;
+    gap: 8px;
+  }
+  .header-nav {
+    gap: 2px;
+    flex-wrap: nowrap;
+    flex-shrink: 0;
+  }
+  .header-nav a {
+    width: 44px;
+    height: 44px;
+    padding: 0;
+  }
+  .header-nav a span { display: none; }
+  .header-nav svg { width: 20px; height: 20px; flex-shrink: 0; }
+}
+@media (max-width: 480px) {
+  .logo-full { display: none; }
+  .logo-short { display: inline; }
+  .logo { font-size: 22px; flex-shrink: 0; }
+}
+@media (max-width: 360px) {
+  .header > .container { padding-inline: 8px; }
+  .header-content { gap: 4px; }
+  .header-nav { gap: 0; }
+}

@@ -1,0 +1,156 @@
+.cart-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: var(--spacing-24);
+  align-items: start;
+}
+.cart-items {
+  display: grid;
+  gap: var(--spacing-16);
+  min-width: 0;
+}
+.cart-item {
+  display: flex;
+  gap: var(--spacing-16);
+  padding: var(--spacing-20);
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+}
+.cart-item:last-child {
+  border-bottom: 1px solid var(--border);
+}
+.cart-item-info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-16);
+  flex: 1;
+  min-width: 0;
+}
+.cart-item-checkbox {
+  flex-shrink: 0;
+  align-self: center;
+}
+.cart-item-checkbox input {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  min-height: 20px;
+  margin: 0;
+  padding: 0;
+  accent-color: var(--primary);
+}
+.cart-item-thumb {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: var(--radius-input-button);
+  background-color: var(--surface);
+}
+.cart-item-details {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-16);
+  flex: 1;
+  min-width: 0;
+}
+.cart-item-description {
+  flex: 1;
+  min-width: 0;
+}
+.cart-item-name {
+  font-size: var(--font-size-body);
+  font-weight: 500;
+  margin-bottom: var(--spacing-4);
+}
+.cart-item-variant,
+.cart-item-shop {
+  font-size: var(--font-size-metadata);
+  color: var(--muted);
+  margin-bottom: var(--spacing-4);
+}
+.cart-item-out-of-stock {
+  font-size: var(--font-size-label);
+  color: var(--error);
+}
+.cart-item-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8);
+  align-items: flex-end;
+}
+.cart-item-quantity {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-8);
+}
+.cart-item-quantity label {
+  margin-right: var(--spacing-8);
+  white-space: nowrap;
+}
+.cart-item-price {
+  font-size: var(--font-size-body);
+  font-weight: 500;
+  color: var(--primary-action);
+  white-space: nowrap;
+}
+.cart-item-remove .button-link {
+  min-height: 44px;
+  padding: var(--spacing-8) var(--spacing-12);
+  border: 1px solid var(--border);
+  background-color: var(--canvas);
+  text-decoration: none;
+}
+.cart-summary {
+  background-color: var(--surface);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-24);
+  border: 1px solid var(--border);
+  position: sticky;
+  top: var(--spacing-24);
+}
+.cart-summary h2 {
+  font-size: 20px;
+  margin-bottom: var(--spacing-24);
+}
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-body);
+  margin-bottom: var(--spacing-16);
+  padding-bottom: var(--spacing-8);
+  border-bottom: 1px solid var(--border);
+}
+.cart-total-amount {
+  font-weight: 600;
+  color: var(--primary-action);
+}
+.cart-actions {
+  display: grid;
+  gap: var(--spacing-12);
+}
+@media (max-width: 1024px) {
+  .cart-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .cart-summary {
+    position: static;
+  }
+}
+
+/* Narrow screens: stack the item so the checkbox, thumbnail and text never
+   squeeze against each other. */
+@media (max-width: 640px) {
+  .cart-item {
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--spacing-12);
+  }
+  .cart-item-actions {
+    align-items: flex-start;
+  }
+  .cart-actions .button-primary,
+  .cart-actions .button-outline {
+    width: 100%;
+  }
+}

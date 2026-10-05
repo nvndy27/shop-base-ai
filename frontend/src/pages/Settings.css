@@ -1,0 +1,26 @@
+.settings-page { max-width: 1120px; }
+.settings-page .appearance-section { margin-bottom: 24px; }
+.appearance-section > p { margin-top: 8px; color: var(--muted); }
+.theme-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; border: 0; margin-top: 20px; min-width: 0; }
+.theme-legend { font-size: 14px; margin-bottom: 12px; color: var(--body); }
+.theme-option { display: flex; align-items: center; gap: 12px; padding: 16px; border: 1px solid var(--border); border-radius: 16px; background: var(--canvas); cursor: pointer; }
+.theme-option:has(input:checked) { border-color: var(--primary-action); background: var(--card); }
+.theme-option:focus-within { outline: 2px solid var(--primary-action); outline-offset: 3px; }
+.settings-page .theme-option input { width: 18px; height: 18px; min-width: 18px; min-height: 18px; padding: 0; accent-color: var(--primary-action); flex-shrink: 0; }
+.theme-option strong { display: block; color: var(--ink); font-size: 15px; }
+.theme-option-detail { display: block; color: var(--muted); font-size: 13px; margin-top: 4px; }
+@media (max-width: 640px) { .theme-options { grid-template-columns: 1fr; } }
+.settings-page .profile-section > .button-primary { margin-top: 20px; }
+.settings-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+.settings-page form { display: grid; gap: 12px; margin-top: 20px; }
+.settings-page form label { min-height: 0; font-size: 14px; }
+.settings-page input { width: 100%; min-width: 0; }
+.settings-preview { margin-top: 32px; padding-top: 20px; border-top: 1px solid var(--border); }
+.settings-preview p { font-size: 14px; color: var(--muted); margin-top: 8px; }
+.auth-channels { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; }
+.auth-channels button { padding: 10px; background: var(--canvas); color: var(--ink); border: 1px solid var(--border); }
+.auth-channels button[aria-pressed="true"] { background: var(--primary-action); color: var(--on-accent); }
+
+.language-options { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.product-original-title { color: var(--muted); font-size: 12px; margin: 8px 0; }
+@media (max-width: 480px) { .language-options { grid-template-columns: 1fr; } }

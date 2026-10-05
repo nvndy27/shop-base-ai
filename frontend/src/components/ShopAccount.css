@@ -1,0 +1,18 @@
+.profile-grid > .shop-account { grid-column: 1 / -1; scroll-margin-top: 24px; }
+.shop-account h2 { display: flex; align-items: center; gap: 10px; }
+.shop-account > p { margin-top: 12px; color: var(--muted); }
+.shop-account-list { list-style: none; display: grid; gap: 12px; margin: 20px 0; }
+.shop-account-list li { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px; border: 1px solid var(--border); border-radius: 16px; background: var(--canvas); }
+.shop-account-list strong { display: block; color: var(--ink); overflow-wrap: anywhere; }
+.shop-account-list div span { display: block; font-size: 13px; color: var(--muted); overflow-wrap: anywhere; }
+.shop-account-list .badge { flex-shrink: 0; }
+.shop-account details { margin-top: 20px; border-top: 1px solid var(--border); padding-top: 16px; }
+.shop-account summary { cursor: pointer; color: var(--ink); min-height: 44px; padding-block: 10px; font-weight: 500; }
+.shop-account form { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; margin-top: 12px; }
+.shop-account form label { display: block; min-height: 0; font-size: 14px; margin-bottom: 8px; }
+.shop-account input { width: 100%; min-width: 0; }
+.shop-account form p { font-size: 12px; margin-top: 8px; color: var(--muted); }
+.shop-account form button { width: fit-content; grid-column: 1 / -1; }
+.shop-account .alert { margin: 16px 0 0; }
+.shop-load-error { display: grid; gap: 12px; margin-top: 12px; }
+@media (max-width: 640px) { .shop-account form { grid-template-columns: 1fr; } }

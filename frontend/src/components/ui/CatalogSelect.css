@@ -1,0 +1,66 @@
+.catalog-select { position: relative; min-width: 0; }
+.catalog-select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  height: 44px;
+  margin: 0;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--ink);
+  font: 400 14px Inter, system-ui, sans-serif;
+  text-align: left;
+  cursor: pointer;
+}
+.catalog-select-trigger > span { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.catalog-select-trigger svg { flex-shrink: 0; color: var(--muted); transition: transform .15s ease; }
+.catalog-select-trigger[aria-expanded="true"] { border-color: var(--primary); background: var(--card); }
+.catalog-select-trigger[aria-expanded="true"] svg { transform: rotate(180deg); }
+.catalog-select-trigger:focus-visible { outline: 2px solid var(--primary); outline-offset: 3px; }
+.catalog-select-options {
+  position: absolute;
+  z-index: 25;
+  top: calc(100% + 8px);
+  left: 0;
+  width: max(100%, 260px);
+  max-width: calc(100vw - 32px);
+  max-height: 300px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 6px;
+  list-style: none;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--card);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, .12);
+}
+.catalog-category-control:nth-child(2) .catalog-select-options { left: auto; right: 0; }
+.catalog-select-options button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  min-height: 44px;
+  margin: 0;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--ink);
+  font: 400 14px/1.4 Inter, system-ui, sans-serif;
+  text-align: left;
+  cursor: pointer;
+}
+.catalog-select-options button:hover,
+.catalog-select-options button[data-active="true"] { background: var(--surface); }
+.catalog-select-options button[aria-selected="true"] { color: var(--primary); font-weight: 600; }
+.catalog-select-check { flex: 0 0 16px; }
+@media (max-width: 640px) {
+  .catalog-select-trigger { padding-inline: 12px; font-size: 13px; gap: 8px; }
+}
+@media (prefers-reduced-motion: reduce) { .catalog-select-trigger svg { transition: none; } }

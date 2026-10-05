@@ -1,0 +1,1840 @@
+{
+  "provenance": {
+    "source": "DummyJSON",
+    "productsUrl": "https://dummyjson.com/products",
+    "cartsUrl": "https://dummyjson.com/carts",
+    "licenseUrl": "https://github.com/Ovi/DummyJSON/blob/master/LICENSE",
+    "importedAt": "2026-10-02T15:03:47.152Z",
+    "productsSha256": "2f3d3af6e7eddf81e7f27006ae231cde194fcf90566b11b36ac39334d3970930",
+    "cartsSha256": "3a36ffd56cf5b3a83792ba7572c52386a43083871c2642898b2067b81f07c971",
+    "demoVndMultiplier": 25000,
+    "note": "Products and carts from DummyJSON. Shops, VND prices, order states/dates and suborders are synthetic demo fixtures; not real transactions or an exchange-rate quote."
+  },
+  "products": [
+    {
+      "id": 1,
+      "sourceId": 1,
+      "name": "Essence Mascara Lash Princess",
+      "category": "beauty",
+      "categoryLabel": "Mỹ phẩm",
+      "image": "https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/beauty/essence-mascara-lash-princess/1.webp"
+      ],
+      "price": 249750,
+      "sourcePrice": 9.99,
+      "currency": "VND",
+      "shopId": "demo-shop-1",
+      "shop": "Shop Làm đẹp · Demo",
+      "stock": 99,
+      "rating": 2.56,
+      "caption": "Mỹ phẩm",
+      "description": "Essence Mascara Lash Princess — sản phẩm mẫu thuộc danh mục mỹ phẩm.",
+      "variants": [
+        {
+          "id": "BEA-ESS-ESS-001",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 99
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 2,
+      "sourceId": 2,
+      "name": "Eyeshadow Palette with Mirror",
+      "category": "beauty",
+      "categoryLabel": "Mỹ phẩm",
+      "image": "https://cdn.dummyjson.com/product-images/beauty/eyeshadow-palette-with-mirror/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/beauty/eyeshadow-palette-with-mirror/1.webp"
+      ],
+      "price": 499750,
+      "sourcePrice": 19.99,
+      "currency": "VND",
+      "shopId": "demo-shop-1",
+      "shop": "Shop Làm đẹp · Demo",
+      "stock": 34,
+      "rating": 2.86,
+      "caption": "Mỹ phẩm",
+      "description": "Eyeshadow Palette with Mirror — sản phẩm mẫu thuộc danh mục mỹ phẩm.",
+      "variants": [
+        {
+          "id": "BEA-GLA-EYE-002",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 34
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 3,
+      "sourceId": 3,
+      "name": "Powder Canister",
+      "category": "beauty",
+      "categoryLabel": "Mỹ phẩm",
+      "image": "https://cdn.dummyjson.com/product-images/beauty/powder-canister/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/beauty/powder-canister/1.webp"
+      ],
+      "price": 374750,
+      "sourcePrice": 14.99,
+      "currency": "VND",
+      "shopId": "demo-shop-1",
+      "shop": "Shop Làm đẹp · Demo",
+      "stock": 89,
+      "rating": 4.64,
+      "caption": "Mỹ phẩm",
+      "description": "Powder Canister — sản phẩm mẫu thuộc danh mục mỹ phẩm.",
+      "variants": [
+        {
+          "id": "BEA-VEL-POW-003",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 89
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 6,
+      "sourceId": 6,
+      "name": "Calvin Klein CK One",
+      "category": "fragrances",
+      "categoryLabel": "Nước hoa",
+      "image": "https://cdn.dummyjson.com/product-images/fragrances/calvin-klein-ck-one/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/fragrances/calvin-klein-ck-one/1.webp",
+        "https://cdn.dummyjson.com/product-images/fragrances/calvin-klein-ck-one/2.webp",
+        "https://cdn.dummyjson.com/product-images/fragrances/calvin-klein-ck-one/3.webp"
+      ],
+      "price": 1249750,
+      "sourcePrice": 49.99,
+      "currency": "VND",
+      "shopId": "demo-shop-1",
+      "shop": "Shop Làm đẹp · Demo",
+      "stock": 29,
+      "rating": 4.37,
+      "caption": "Nước hoa",
+      "description": "Calvin Klein CK One — sản phẩm mẫu thuộc danh mục nước hoa.",
+      "variants": [
+        {
+          "id": "FRA-CAL-CAL-006",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 29
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 7,
+      "sourceId": 7,
+      "name": "Chanel Coco Noir Eau De",
+      "category": "fragrances",
+      "categoryLabel": "Nước hoa",
+      "image": "https://cdn.dummyjson.com/product-images/fragrances/chanel-coco-noir-eau-de/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/fragrances/chanel-coco-noir-eau-de/1.webp",
+        "https://cdn.dummyjson.com/product-images/fragrances/chanel-coco-noir-eau-de/2.webp",
+        "https://cdn.dummyjson.com/product-images/fragrances/chanel-coco-noir-eau-de/3.webp"
+      ],
+      "price": 3249750,
+      "sourcePrice": 129.99,
+      "currency": "VND",
+      "shopId": "demo-shop-1",
+      "shop": "Shop Làm đẹp · Demo",
+      "stock": 58,
+      "rating": 4.26,
+      "caption": "Nước hoa",
+      "description": "Chanel Coco Noir Eau De — sản phẩm mẫu thuộc danh mục nước hoa.",
+      "variants": [
+        {
+          "id": "FRA-CHA-CHA-007",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 58
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 8,
+      "sourceId": 8,
+      "name": "Dior J'adore",
+      "category": "fragrances",
+      "categoryLabel": "Nước hoa",
+      "image": "https://cdn.dummyjson.com/product-images/fragrances/dior-j'adore/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/fragrances/dior-j'adore/1.webp",
+        "https://cdn.dummyjson.com/product-images/fragrances/dior-j'adore/2.webp",
+        "https://cdn.dummyjson.com/product-images/fragrances/dior-j'adore/3.webp"
+      ],
+      "price": 2249750,
+      "sourcePrice": 89.99,
+      "currency": "VND",
+      "shopId": "demo-shop-1",
+      "shop": "Shop Làm đẹp · Demo",
+      "stock": 98,
+      "rating": 3.8,
+      "caption": "Nước hoa",
+      "description": "Dior J'adore — sản phẩm mẫu thuộc danh mục nước hoa.",
+      "variants": [
+        {
+          "id": "FRA-DIO-DIO-008",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 98
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 11,
+      "sourceId": 11,
+      "name": "Annibale Colombo Bed",
+      "category": "furniture",
+      "categoryLabel": "Nội thất",
+      "image": "https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-bed/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-bed/1.webp",
+        "https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-bed/2.webp",
+        "https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-bed/3.webp"
+      ],
+      "price": 47499750,
+      "sourcePrice": 1899.99,
+      "currency": "VND",
+      "shopId": "demo-shop-3",
+      "shop": "Shop Đời sống · Demo",
+      "stock": 88,
+      "rating": 4.77,
+      "caption": "Nội thất",
+      "description": "Annibale Colombo Bed — sản phẩm mẫu thuộc danh mục nội thất.",
+      "variants": [
+        {
+          "id": "FUR-ANN-ANN-011",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 88
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 12,
+      "sourceId": 12,
+      "name": "Annibale Colombo Sofa",
+      "category": "furniture",
+      "categoryLabel": "Nội thất",
+      "image": "https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-sofa/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-sofa/1.webp",
+        "https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-sofa/2.webp",
+        "https://cdn.dummyjson.com/product-images/furniture/annibale-colombo-sofa/3.webp"
+      ],
+      "price": 62499750,
+      "sourcePrice": 2499.99,
+      "currency": "VND",
+      "shopId": "demo-shop-3",
+      "shop": "Shop Đời sống · Demo",
+      "stock": 60,
+      "rating": 3.92,
+      "caption": "Nội thất",
+      "description": "Annibale Colombo Sofa — sản phẩm mẫu thuộc danh mục nội thất.",
+      "variants": [
+        {
+          "id": "FUR-ANN-ANN-012",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 60
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 13,
+      "sourceId": 13,
+      "name": "Bedside Table African Cherry",
+      "category": "furniture",
+      "categoryLabel": "Nội thất",
+      "image": "https://cdn.dummyjson.com/product-images/furniture/bedside-table-african-cherry/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/furniture/bedside-table-african-cherry/1.webp",
+        "https://cdn.dummyjson.com/product-images/furniture/bedside-table-african-cherry/2.webp",
+        "https://cdn.dummyjson.com/product-images/furniture/bedside-table-african-cherry/3.webp"
+      ],
+      "price": 7499750,
+      "sourcePrice": 299.99,
+      "currency": "VND",
+      "shopId": "demo-shop-3",
+      "shop": "Shop Đời sống · Demo",
+      "stock": 64,
+      "rating": 2.87,
+      "caption": "Nội thất",
+      "description": "Bedside Table African Cherry — sản phẩm mẫu thuộc danh mục nội thất.",
+      "variants": [
+        {
+          "id": "FUR-FUR-BED-013",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 64
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 78,
+      "sourceId": 78,
+      "name": "Apple MacBook Pro 14 Inch Space Grey",
+      "category": "laptops",
+      "categoryLabel": "Laptop",
+      "image": "https://cdn.dummyjson.com/product-images/laptops/apple-macbook-pro-14-inch-space-grey/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/laptops/apple-macbook-pro-14-inch-space-grey/1.webp",
+        "https://cdn.dummyjson.com/product-images/laptops/apple-macbook-pro-14-inch-space-grey/2.webp",
+        "https://cdn.dummyjson.com/product-images/laptops/apple-macbook-pro-14-inch-space-grey/3.webp"
+      ],
+      "price": 49999750,
+      "sourcePrice": 1999.99,
+      "currency": "VND",
+      "shopId": "demo-shop-2",
+      "shop": "Shop Công nghệ · Demo",
+      "stock": 24,
+      "rating": 3.65,
+      "caption": "Laptop",
+      "description": "Apple MacBook Pro 14 Inch Space Grey — sản phẩm mẫu thuộc danh mục laptop.",
+      "variants": [
+        {
+          "id": "LAP-APP-APP-078",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 24
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 79,
+      "sourceId": 79,
+      "name": "Asus Zenbook Pro Dual Screen Laptop",
+      "category": "laptops",
+      "categoryLabel": "Laptop",
+      "image": "https://cdn.dummyjson.com/product-images/laptops/asus-zenbook-pro-dual-screen-laptop/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/laptops/asus-zenbook-pro-dual-screen-laptop/1.webp",
+        "https://cdn.dummyjson.com/product-images/laptops/asus-zenbook-pro-dual-screen-laptop/2.webp",
+        "https://cdn.dummyjson.com/product-images/laptops/asus-zenbook-pro-dual-screen-laptop/3.webp"
+      ],
+      "price": 44999750,
+      "sourcePrice": 1799.99,
+      "currency": "VND",
+      "shopId": "demo-shop-2",
+      "shop": "Shop Công nghệ · Demo",
+      "stock": 45,
+      "rating": 3.95,
+      "caption": "Laptop",
+      "description": "Asus Zenbook Pro Dual Screen Laptop — sản phẩm mẫu thuộc danh mục laptop.",
+      "variants": [
+        {
+          "id": "LAP-ASU-ASU-079",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 45
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 80,
+      "sourceId": 80,
+      "name": "Huawei Matebook X Pro",
+      "category": "laptops",
+      "categoryLabel": "Laptop",
+      "image": "https://cdn.dummyjson.com/product-images/laptops/huawei-matebook-x-pro/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/laptops/huawei-matebook-x-pro/1.webp",
+        "https://cdn.dummyjson.com/product-images/laptops/huawei-matebook-x-pro/2.webp",
+        "https://cdn.dummyjson.com/product-images/laptops/huawei-matebook-x-pro/3.webp"
+      ],
+      "price": 34999750,
+      "sourcePrice": 1399.99,
+      "currency": "VND",
+      "shopId": "demo-shop-2",
+      "shop": "Shop Công nghệ · Demo",
+      "stock": 75,
+      "rating": 4.98,
+      "caption": "Laptop",
+      "description": "Huawei Matebook X Pro — sản phẩm mẫu thuộc danh mục laptop.",
+      "variants": [
+        {
+          "id": "LAP-HUA-HUA-080",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 75
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 83,
+      "sourceId": 83,
+      "name": "Blue & Black Check Shirt",
+      "category": "mens-shirts",
+      "categoryLabel": "Áo nam",
+      "image": "https://cdn.dummyjson.com/product-images/mens-shirts/blue-&-black-check-shirt/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/mens-shirts/blue-&-black-check-shirt/1.webp",
+        "https://cdn.dummyjson.com/product-images/mens-shirts/blue-&-black-check-shirt/2.webp",
+        "https://cdn.dummyjson.com/product-images/mens-shirts/blue-&-black-check-shirt/3.webp",
+        "https://cdn.dummyjson.com/product-images/mens-shirts/blue-&-black-check-shirt/4.webp"
+      ],
+      "price": 749750,
+      "sourcePrice": 29.99,
+      "currency": "VND",
+      "shopId": "demo-shop-3",
+      "shop": "Shop Đời sống · Demo",
+      "stock": 38,
+      "rating": 3.64,
+      "caption": "Áo nam",
+      "description": "Blue & Black Check Shirt — sản phẩm mẫu thuộc danh mục áo nam.",
+      "variants": [
+        {
+          "id": "MEN-FAS-BLU-083",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 38
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 84,
+      "sourceId": 84,
+      "name": "Gigabyte Aorus Men Tshirt",
+      "category": "mens-shirts",
+      "categoryLabel": "Áo nam",
+      "image": "https://cdn.dummyjson.com/product-images/mens-shirts/gigabyte-aorus-men-tshirt/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/mens-shirts/gigabyte-aorus-men-tshirt/1.webp",
+        "https://cdn.dummyjson.com/product-images/mens-shirts/gigabyte-aorus-men-tshirt/2.webp",
+        "https://cdn.dummyjson.com/product-images/mens-shirts/gigabyte-aorus-men-tshirt/3.webp",
+        "https://cdn.dummyjson.com/product-images/mens-shirts/gigabyte-aorus-men-tshirt/4.webp"
+      ],
+      "price": 624750,
+      "sourcePrice": 24.99,
+      "currency": "VND",
+      "shopId": "demo-shop-3",
+      "shop": "Shop Đời sống · Demo",
+      "stock": 90,
+      "rating": 3.18,
+      "caption": "Áo nam",
+      "description": "Gigabyte Aorus Men Tshirt — sản phẩm mẫu thuộc danh mục áo nam.",
+      "variants": [
+        {
+          "id": "MEN-GIG-GIG-084",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 90
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 85,
+      "sourceId": 85,
+      "name": "Man Plaid Shirt",
+      "category": "mens-shirts",
+      "categoryLabel": "Áo nam",
+      "image": "https://cdn.dummyjson.com/product-images/mens-shirts/man-plaid-shirt/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/mens-shirts/man-plaid-shirt/1.webp",
+        "https://cdn.dummyjson.com/product-images/mens-shirts/man-plaid-shirt/2.webp",
+        "https://cdn.dummyjson.com/product-images/mens-shirts/man-plaid-shirt/3.webp",
+        "https://cdn.dummyjson.com/product-images/mens-shirts/man-plaid-shirt/4.webp"
+      ],
+      "price": 874750,
+      "sourcePrice": 34.99,
+      "currency": "VND",
+      "shopId": "demo-shop-3",
+      "shop": "Shop Đời sống · Demo",
+      "stock": 82,
+      "rating": 3.46,
+      "caption": "Áo nam",
+      "description": "Man Plaid Shirt — sản phẩm mẫu thuộc danh mục áo nam.",
+      "variants": [
+        {
+          "id": "MEN-CLA-PLA-085",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 82
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 121,
+      "sourceId": 121,
+      "name": "iPhone 5s",
+      "category": "smartphones",
+      "categoryLabel": "Điện thoại",
+      "image": "https://cdn.dummyjson.com/product-images/smartphones/iphone-5s/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/smartphones/iphone-5s/1.webp",
+        "https://cdn.dummyjson.com/product-images/smartphones/iphone-5s/2.webp",
+        "https://cdn.dummyjson.com/product-images/smartphones/iphone-5s/3.webp"
+      ],
+      "price": 4999750,
+      "sourcePrice": 199.99,
+      "currency": "VND",
+      "shopId": "demo-shop-2",
+      "shop": "Shop Công nghệ · Demo",
+      "stock": 25,
+      "rating": 2.83,
+      "caption": "Điện thoại",
+      "description": "iPhone 5s — sản phẩm mẫu thuộc danh mục điện thoại.",
+      "variants": [
+        {
+          "id": "SMA-APP-IPH-121",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 25
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 122,
+      "sourceId": 122,
+      "name": "iPhone 6",
+      "category": "smartphones",
+      "categoryLabel": "Điện thoại",
+      "image": "https://cdn.dummyjson.com/product-images/smartphones/iphone-6/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/smartphones/iphone-6/1.webp",
+        "https://cdn.dummyjson.com/product-images/smartphones/iphone-6/2.webp",
+        "https://cdn.dummyjson.com/product-images/smartphones/iphone-6/3.webp"
+      ],
+      "price": 7499750,
+      "sourcePrice": 299.99,
+      "currency": "VND",
+      "shopId": "demo-shop-2",
+      "shop": "Shop Công nghệ · Demo",
+      "stock": 60,
+      "rating": 3.41,
+      "caption": "Điện thoại",
+      "description": "iPhone 6 — sản phẩm mẫu thuộc danh mục điện thoại.",
+      "variants": [
+        {
+          "id": "SMA-APP-IPH-122",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 60
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 123,
+      "sourceId": 123,
+      "name": "iPhone 13 Pro",
+      "category": "smartphones",
+      "categoryLabel": "Điện thoại",
+      "image": "https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/1.webp",
+        "https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/2.webp",
+        "https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/3.webp"
+      ],
+      "price": 27499750,
+      "sourcePrice": 1099.99,
+      "currency": "VND",
+      "shopId": "demo-shop-2",
+      "shop": "Shop Công nghệ · Demo",
+      "stock": 56,
+      "rating": 4.12,
+      "caption": "Điện thoại",
+      "description": "iPhone 13 Pro — sản phẩm mẫu thuộc danh mục điện thoại.",
+      "variants": [
+        {
+          "id": "SMA-APP-IPH-123",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 56
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 172,
+      "sourceId": 172,
+      "name": "Blue Women's Handbag",
+      "category": "womens-bags",
+      "categoryLabel": "Túi nữ",
+      "image": "https://cdn.dummyjson.com/product-images/womens-bags/blue-women's-handbag/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/womens-bags/blue-women's-handbag/1.webp",
+        "https://cdn.dummyjson.com/product-images/womens-bags/blue-women's-handbag/2.webp",
+        "https://cdn.dummyjson.com/product-images/womens-bags/blue-women's-handbag/3.webp"
+      ],
+      "price": 1249750,
+      "sourcePrice": 49.99,
+      "currency": "VND",
+      "shopId": "demo-shop-3",
+      "shop": "Shop Đời sống · Demo",
+      "stock": 76,
+      "rating": 2.92,
+      "caption": "Túi nữ",
+      "description": "Blue Women's Handbag — sản phẩm mẫu thuộc danh mục túi nữ.",
+      "variants": [
+        {
+          "id": "WOM-FAS-BLU-172",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 76
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 173,
+      "sourceId": 173,
+      "name": "Heshe Women's Leather Bag",
+      "category": "womens-bags",
+      "categoryLabel": "Túi nữ",
+      "image": "https://cdn.dummyjson.com/product-images/womens-bags/heshe-women's-leather-bag/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/womens-bags/heshe-women's-leather-bag/1.webp",
+        "https://cdn.dummyjson.com/product-images/womens-bags/heshe-women's-leather-bag/2.webp",
+        "https://cdn.dummyjson.com/product-images/womens-bags/heshe-women's-leather-bag/3.webp"
+      ],
+      "price": 3249750,
+      "sourcePrice": 129.99,
+      "currency": "VND",
+      "shopId": "demo-shop-3",
+      "shop": "Shop Đời sống · Demo",
+      "stock": 99,
+      "rating": 4.92,
+      "caption": "Túi nữ",
+      "description": "Heshe Women's Leather Bag — sản phẩm mẫu thuộc danh mục túi nữ.",
+      "variants": [
+        {
+          "id": "WOM-HES-HES-173",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 99
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 174,
+      "sourceId": 174,
+      "name": "Prada Women Bag",
+      "category": "womens-bags",
+      "categoryLabel": "Túi nữ",
+      "image": "https://cdn.dummyjson.com/product-images/womens-bags/prada-women-bag/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/womens-bags/prada-women-bag/1.webp",
+        "https://cdn.dummyjson.com/product-images/womens-bags/prada-women-bag/2.webp",
+        "https://cdn.dummyjson.com/product-images/womens-bags/prada-women-bag/3.webp"
+      ],
+      "price": 14999750,
+      "sourcePrice": 599.99,
+      "currency": "VND",
+      "shopId": "demo-shop-3",
+      "shop": "Shop Đời sống · Demo",
+      "stock": 75,
+      "rating": 2.71,
+      "caption": "Túi nữ",
+      "description": "Prada Women Bag — sản phẩm mẫu thuộc danh mục túi nữ.",
+      "variants": [
+        {
+          "id": "WOM-PRA-PRA-174",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 75
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 185,
+      "sourceId": 185,
+      "name": "Black & Brown Slipper",
+      "category": "womens-shoes",
+      "categoryLabel": "Giày nữ",
+      "image": "https://cdn.dummyjson.com/product-images/womens-shoes/black-&-brown-slipper/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/womens-shoes/black-&-brown-slipper/1.webp",
+        "https://cdn.dummyjson.com/product-images/womens-shoes/black-&-brown-slipper/2.webp",
+        "https://cdn.dummyjson.com/product-images/womens-shoes/black-&-brown-slipper/3.webp",
+        "https://cdn.dummyjson.com/product-images/womens-shoes/black-&-brown-slipper/4.webp"
+      ],
+      "price": 499750,
+      "sourcePrice": 19.99,
+      "currency": "VND",
+      "shopId": "demo-shop-3",
+      "shop": "Shop Đời sống · Demo",
+      "stock": 3,
+      "rating": 2.53,
+      "caption": "Giày nữ",
+      "description": "Black & Brown Slipper — sản phẩm mẫu thuộc danh mục giày nữ.",
+      "variants": [
+        {
+          "id": "WOM-COM-BLA-185",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 3
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 186,
+      "sourceId": 186,
+      "name": "Calvin Klein Heel Shoes",
+      "category": "womens-shoes",
+      "categoryLabel": "Giày nữ",
+      "image": "https://cdn.dummyjson.com/product-images/womens-shoes/calvin-klein-heel-shoes/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/womens-shoes/calvin-klein-heel-shoes/1.webp",
+        "https://cdn.dummyjson.com/product-images/womens-shoes/calvin-klein-heel-shoes/2.webp",
+        "https://cdn.dummyjson.com/product-images/womens-shoes/calvin-klein-heel-shoes/3.webp",
+        "https://cdn.dummyjson.com/product-images/womens-shoes/calvin-klein-heel-shoes/4.webp"
+      ],
+      "price": 1999750,
+      "sourcePrice": 79.99,
+      "currency": "VND",
+      "shopId": "demo-shop-3",
+      "shop": "Shop Đời sống · Demo",
+      "stock": 93,
+      "rating": 4.92,
+      "caption": "Giày nữ",
+      "description": "Calvin Klein Heel Shoes — sản phẩm mẫu thuộc danh mục giày nữ.",
+      "variants": [
+        {
+          "id": "WOM-CAL-CAL-186",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 93
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 187,
+      "sourceId": 187,
+      "name": "Golden Shoes Woman",
+      "category": "womens-shoes",
+      "categoryLabel": "Giày nữ",
+      "image": "https://cdn.dummyjson.com/product-images/womens-shoes/golden-shoes-woman/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/womens-shoes/golden-shoes-woman/1.webp",
+        "https://cdn.dummyjson.com/product-images/womens-shoes/golden-shoes-woman/2.webp",
+        "https://cdn.dummyjson.com/product-images/womens-shoes/golden-shoes-woman/3.webp",
+        "https://cdn.dummyjson.com/product-images/womens-shoes/golden-shoes-woman/4.webp"
+      ],
+      "price": 1249750,
+      "sourcePrice": 49.99,
+      "currency": "VND",
+      "shopId": "demo-shop-3",
+      "shop": "Shop Đời sống · Demo",
+      "stock": 88,
+      "rating": 3.26,
+      "caption": "Giày nữ",
+      "description": "Golden Shoes Woman — sản phẩm mẫu thuộc danh mục giày nữ.",
+      "variants": [
+        {
+          "id": "WOM-FAS-GOL-187",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 88
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 162,
+      "sourceId": 162,
+      "name": "Blue Frock",
+      "category": "tops",
+      "categoryLabel": "Áo",
+      "image": "https://cdn.dummyjson.com/product-images/tops/blue-frock/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/tops/blue-frock/1.webp",
+        "https://cdn.dummyjson.com/product-images/tops/blue-frock/2.webp",
+        "https://cdn.dummyjson.com/product-images/tops/blue-frock/3.webp",
+        "https://cdn.dummyjson.com/product-images/tops/blue-frock/4.webp"
+      ],
+      "price": 749750,
+      "sourcePrice": 29.99,
+      "currency": "VND",
+      "shopId": "demo-shop-3",
+      "shop": "Shop Đời sống · Demo",
+      "stock": 52,
+      "rating": 4.17,
+      "caption": "Áo",
+      "description": "Blue Frock — sản phẩm mẫu thuộc danh mục áo.",
+      "variants": [
+        {
+          "id": "TOP-BRD-BLU-162",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 52
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 113,
+      "sourceId": 113,
+      "name": "Generic Motorcycle",
+      "category": "motorcycle",
+      "categoryLabel": "Xe máy",
+      "image": "https://cdn.dummyjson.com/product-images/motorcycle/generic-motorcycle/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/motorcycle/generic-motorcycle/1.webp",
+        "https://cdn.dummyjson.com/product-images/motorcycle/generic-motorcycle/2.webp",
+        "https://cdn.dummyjson.com/product-images/motorcycle/generic-motorcycle/3.webp",
+        "https://cdn.dummyjson.com/product-images/motorcycle/generic-motorcycle/4.webp"
+      ],
+      "price": 99999750,
+      "sourcePrice": 3999.99,
+      "currency": "VND",
+      "shopId": "demo-shop-3",
+      "shop": "Shop Đời sống · Demo",
+      "stock": 34,
+      "rating": 4.91,
+      "caption": "Xe máy",
+      "description": "Generic Motorcycle — sản phẩm mẫu thuộc danh mục xe máy.",
+      "variants": [
+        {
+          "id": "MOT-GEN-GEN-113",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 34
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 138,
+      "sourceId": 138,
+      "name": "Baseball Ball",
+      "category": "sports-accessories",
+      "categoryLabel": "Đồ thể thao",
+      "image": "https://cdn.dummyjson.com/product-images/sports-accessories/baseball-ball/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/sports-accessories/baseball-ball/1.webp"
+      ],
+      "price": 224750,
+      "sourcePrice": 8.99,
+      "currency": "VND",
+      "shopId": "demo-shop-3",
+      "shop": "Shop Đời sống · Demo",
+      "stock": 100,
+      "rating": 2.57,
+      "caption": "Đồ thể thao",
+      "description": "Baseball Ball — sản phẩm mẫu thuộc danh mục đồ thể thao.",
+      "variants": [
+        {
+          "id": "SPO-BRD-BAS-138",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 100
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 86,
+      "sourceId": 86,
+      "name": "Man Short Sleeve Shirt",
+      "category": "mens-shirts",
+      "categoryLabel": "Áo nam",
+      "image": "https://cdn.dummyjson.com/product-images/mens-shirts/man-short-sleeve-shirt/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/mens-shirts/man-short-sleeve-shirt/1.webp",
+        "https://cdn.dummyjson.com/product-images/mens-shirts/man-short-sleeve-shirt/2.webp",
+        "https://cdn.dummyjson.com/product-images/mens-shirts/man-short-sleeve-shirt/3.webp",
+        "https://cdn.dummyjson.com/product-images/mens-shirts/man-short-sleeve-shirt/4.webp"
+      ],
+      "price": 499750,
+      "sourcePrice": 19.99,
+      "currency": "VND",
+      "shopId": "demo-shop-3",
+      "shop": "Shop Đời sống · Demo",
+      "stock": 2,
+      "rating": 2.9,
+      "caption": "Áo nam",
+      "description": "Man Short Sleeve Shirt — sản phẩm mẫu thuộc danh mục áo nam.",
+      "variants": [
+        {
+          "id": "MEN-CAS-SHO-086",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 2
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 104,
+      "sourceId": 104,
+      "name": "Apple iPhone Charger",
+      "category": "mobile-accessories",
+      "categoryLabel": "Phụ kiện điện thoại",
+      "image": "https://cdn.dummyjson.com/product-images/mobile-accessories/apple-iphone-charger/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/mobile-accessories/apple-iphone-charger/1.webp",
+        "https://cdn.dummyjson.com/product-images/mobile-accessories/apple-iphone-charger/2.webp"
+      ],
+      "price": 499750,
+      "sourcePrice": 19.99,
+      "currency": "VND",
+      "shopId": "demo-shop-2",
+      "shop": "Shop Công nghệ · Demo",
+      "stock": 31,
+      "rating": 4.15,
+      "caption": "Phụ kiện điện thoại",
+      "description": "Apple iPhone Charger — sản phẩm mẫu thuộc danh mục phụ kiện điện thoại.",
+      "variants": [
+        {
+          "id": "MOB-APP-APP-104",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 31
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 24,
+      "sourceId": 24,
+      "name": "Fish Steak",
+      "category": "groceries",
+      "categoryLabel": "Thực phẩm",
+      "image": "https://cdn.dummyjson.com/product-images/groceries/fish-steak/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/groceries/fish-steak/1.webp"
+      ],
+      "price": 374750,
+      "sourcePrice": 14.99,
+      "currency": "VND",
+      "shopId": "demo-shop-3",
+      "shop": "Shop Đời sống · Demo",
+      "stock": 74,
+      "rating": 3.78,
+      "caption": "Thực phẩm",
+      "description": "Fish Steak — sản phẩm mẫu thuộc danh mục thực phẩm.",
+      "variants": [
+        {
+          "id": "GRO-BRD-FIS-024",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 74
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 129,
+      "sourceId": 129,
+      "name": "Realme X",
+      "category": "smartphones",
+      "categoryLabel": "Điện thoại",
+      "image": "https://cdn.dummyjson.com/product-images/smartphones/realme-x/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/smartphones/realme-x/1.webp",
+        "https://cdn.dummyjson.com/product-images/smartphones/realme-x/2.webp",
+        "https://cdn.dummyjson.com/product-images/smartphones/realme-x/3.webp"
+      ],
+      "price": 7499750,
+      "sourcePrice": 299.99,
+      "currency": "VND",
+      "shopId": "demo-shop-2",
+      "shop": "Shop Công nghệ · Demo",
+      "stock": 12,
+      "rating": 3.7,
+      "caption": "Điện thoại",
+      "description": "Realme X — sản phẩm mẫu thuộc danh mục điện thoại.",
+      "variants": [
+        {
+          "id": "SMA-REA-REA-129",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 12
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    },
+    {
+      "id": 157,
+      "sourceId": 157,
+      "name": "Party Glasses",
+      "category": "sunglasses",
+      "categoryLabel": "Kính mắt",
+      "image": "https://cdn.dummyjson.com/product-images/sunglasses/party-glasses/thumbnail.webp",
+      "gallery": [
+        "https://cdn.dummyjson.com/product-images/sunglasses/party-glasses/1.webp",
+        "https://cdn.dummyjson.com/product-images/sunglasses/party-glasses/2.webp",
+        "https://cdn.dummyjson.com/product-images/sunglasses/party-glasses/3.webp"
+      ],
+      "price": 499750,
+      "sourcePrice": 19.99,
+      "currency": "VND",
+      "shopId": "demo-shop-3",
+      "shop": "Shop Đời sống · Demo",
+      "stock": 86,
+      "rating": 2.79,
+      "caption": "Kính mắt",
+      "description": "Party Glasses — sản phẩm mẫu thuộc danh mục kính mắt.",
+      "variants": [
+        {
+          "id": "SUN-FAS-PAR-157",
+          "color": "Tiêu chuẩn",
+          "size": "Phiên bản gốc",
+          "stock": 86
+        }
+      ],
+      "reviews": [],
+      "demo": true
+    }
+  ],
+  "carts": [
+    {
+      "id": 1,
+      "demo": true,
+      "items": [
+        {
+          "id": 162,
+          "productId": 162,
+          "name": "Blue Frock",
+          "variant": {
+            "id": "TOP-BRD-BLU-162",
+            "color": "Tiêu chuẩn",
+            "size": "Phiên bản gốc",
+            "stock": 52
+          },
+          "quantity": 4,
+          "price": 749750,
+          "image": "https://cdn.dummyjson.com/product-images/tops/blue-frock/thumbnail.webp",
+          "shopId": "demo-shop-3",
+          "shop": "Shop Đời sống · Demo",
+          "stock": 52
+        },
+        {
+          "id": 113,
+          "productId": 113,
+          "name": "Generic Motorcycle",
+          "variant": {
+            "id": "MOT-GEN-GEN-113",
+            "color": "Tiêu chuẩn",
+            "size": "Phiên bản gốc",
+            "stock": 34
+          },
+          "quantity": 3,
+          "price": 99999750,
+          "image": "https://cdn.dummyjson.com/product-images/motorcycle/generic-motorcycle/thumbnail.webp",
+          "shopId": "demo-shop-3",
+          "shop": "Shop Đời sống · Demo",
+          "stock": 34
+        },
+        {
+          "id": 122,
+          "productId": 122,
+          "name": "iPhone 6",
+          "variant": {
+            "id": "SMA-APP-IPH-122",
+            "color": "Tiêu chuẩn",
+            "size": "Phiên bản gốc",
+            "stock": 60
+          },
+          "quantity": 3,
+          "price": 7499750,
+          "image": "https://cdn.dummyjson.com/product-images/smartphones/iphone-6/thumbnail.webp",
+          "shopId": "demo-shop-2",
+          "shop": "Shop Công nghệ · Demo",
+          "stock": 60
+        },
+        {
+          "id": 138,
+          "productId": 138,
+          "name": "Baseball Ball",
+          "variant": {
+            "id": "SPO-BRD-BAS-138",
+            "color": "Tiêu chuẩn",
+            "size": "Phiên bản gốc",
+            "stock": 100
+          },
+          "quantity": 2,
+          "price": 224750,
+          "image": "https://cdn.dummyjson.com/product-images/sports-accessories/baseball-ball/thumbnail.webp",
+          "shopId": "demo-shop-3",
+          "shop": "Shop Đời sống · Demo",
+          "stock": 100
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "demo": true,
+      "items": [
+        {
+          "id": 86,
+          "productId": 86,
+          "name": "Man Short Sleeve Shirt",
+          "variant": {
+            "id": "MEN-CAS-SHO-086",
+            "color": "Tiêu chuẩn",
+            "size": "Phiên bản gốc",
+            "stock": 2
+          },
+          "quantity": 5,
+          "price": 499750,
+          "image": "https://cdn.dummyjson.com/product-images/mens-shirts/man-short-sleeve-shirt/thumbnail.webp",
+          "shopId": "demo-shop-3",
+          "shop": "Shop Đời sống · Demo",
+          "stock": 2
+        },
+        {
+          "id": 104,
+          "productId": 104,
+          "name": "Apple iPhone Charger",
+          "variant": {
+            "id": "MOB-APP-APP-104",
+            "color": "Tiêu chuẩn",
+            "size": "Phiên bản gốc",
+            "stock": 31
+          },
+          "quantity": 2,
+          "price": 499750,
+          "image": "https://cdn.dummyjson.com/product-images/mobile-accessories/apple-iphone-charger/thumbnail.webp",
+          "shopId": "demo-shop-2",
+          "shop": "Shop Công nghệ · Demo",
+          "stock": 31
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "demo": true,
+      "items": [
+        {
+          "id": 24,
+          "productId": 24,
+          "name": "Fish Steak",
+          "variant": {
+            "id": "GRO-BRD-FIS-024",
+            "color": "Tiêu chuẩn",
+            "size": "Phiên bản gốc",
+            "stock": 74
+          },
+          "quantity": 1,
+          "price": 374750,
+          "image": "https://cdn.dummyjson.com/product-images/groceries/fish-steak/thumbnail.webp",
+          "shopId": "demo-shop-3",
+          "shop": "Shop Đời sống · Demo",
+          "stock": 74
+        },
+        {
+          "id": 123,
+          "productId": 123,
+          "name": "iPhone 13 Pro",
+          "variant": {
+            "id": "SMA-APP-IPH-123",
+            "color": "Tiêu chuẩn",
+            "size": "Phiên bản gốc",
+            "stock": 56
+          },
+          "quantity": 1,
+          "price": 27499750,
+          "image": "https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp",
+          "shopId": "demo-shop-2",
+          "shop": "Shop Công nghệ · Demo",
+          "stock": 56
+        },
+        {
+          "id": 129,
+          "productId": 129,
+          "name": "Realme X",
+          "variant": {
+            "id": "SMA-REA-REA-129",
+            "color": "Tiêu chuẩn",
+            "size": "Phiên bản gốc",
+            "stock": 12
+          },
+          "quantity": 1,
+          "price": 7499750,
+          "image": "https://cdn.dummyjson.com/product-images/smartphones/realme-x/thumbnail.webp",
+          "shopId": "demo-shop-2",
+          "shop": "Shop Công nghệ · Demo",
+          "stock": 12
+        },
+        {
+          "id": 86,
+          "productId": 86,
+          "name": "Man Short Sleeve Shirt",
+          "variant": {
+            "id": "MEN-CAS-SHO-086",
+            "color": "Tiêu chuẩn",
+            "size": "Phiên bản gốc",
+            "stock": 2
+          },
+          "quantity": 5,
+          "price": 499750,
+          "image": "https://cdn.dummyjson.com/product-images/mens-shirts/man-short-sleeve-shirt/thumbnail.webp",
+          "shopId": "demo-shop-3",
+          "shop": "Shop Đời sống · Demo",
+          "stock": 2
+        },
+        {
+          "id": 8,
+          "productId": 8,
+          "name": "Dior J'adore",
+          "variant": {
+            "id": "FRA-DIO-DIO-008",
+            "color": "Tiêu chuẩn",
+            "size": "Phiên bản gốc",
+            "stock": 98
+          },
+          "quantity": 2,
+          "price": 2249750,
+          "image": "https://cdn.dummyjson.com/product-images/fragrances/dior-j'adore/thumbnail.webp",
+          "shopId": "demo-shop-1",
+          "shop": "Shop Làm đẹp · Demo",
+          "stock": 98
+        },
+        {
+          "id": 157,
+          "productId": 157,
+          "name": "Party Glasses",
+          "variant": {
+            "id": "SUN-FAS-PAR-157",
+            "color": "Tiêu chuẩn",
+            "size": "Phiên bản gốc",
+            "stock": 86
+          },
+          "quantity": 5,
+          "price": 499750,
+          "image": "https://cdn.dummyjson.com/product-images/sunglasses/party-glasses/thumbnail.webp",
+          "shopId": "demo-shop-3",
+          "shop": "Shop Đời sống · Demo",
+          "stock": 86
+        }
+      ]
+    }
+  ],
+  "orders": [
+    {
+      "id": "DEMO-1",
+      "sourceCartId": 1,
+      "demo": true,
+      "status": "delivered",
+      "statusLabel": "Đã giao hàng",
+      "date": "2026-09-20",
+      "items": [
+        {
+          "id": 162,
+          "productId": 162,
+          "name": "Blue Frock",
+          "variant": {
+            "id": "TOP-BRD-BLU-162",
+            "color": "Tiêu chuẩn",
+            "size": "Phiên bản gốc",
+            "stock": 52
+          },
+          "quantity": 4,
+          "price": 749750,
+          "image": "https://cdn.dummyjson.com/product-images/tops/blue-frock/thumbnail.webp",
+          "shopId": "demo-shop-3",
+          "shop": "Shop Đời sống · Demo",
+          "stock": 52
+        },
+        {
+          "id": 113,
+          "productId": 113,
+          "name": "Generic Motorcycle",
+          "variant": {
+            "id": "MOT-GEN-GEN-113",
+            "color": "Tiêu chuẩn",
+            "size": "Phiên bản gốc",
+            "stock": 34
+          },
+          "quantity": 3,
+          "price": 99999750,
+          "image": "https://cdn.dummyjson.com/product-images/motorcycle/generic-motorcycle/thumbnail.webp",
+          "shopId": "demo-shop-3",
+          "shop": "Shop Đời sống · Demo",
+          "stock": 34
+        },
+        {
+          "id": 122,
+          "productId": 122,
+          "name": "iPhone 6",
+          "variant": {
+            "id": "SMA-APP-IPH-122",
+            "color": "Tiêu chuẩn",
+            "size": "Phiên bản gốc",
+            "stock": 60
+          },
+          "quantity": 3,
+          "price": 7499750,
+          "image": "https://cdn.dummyjson.com/product-images/smartphones/iphone-6/thumbnail.webp",
+          "shopId": "demo-shop-2",
+          "shop": "Shop Công nghệ · Demo",
+          "stock": 60
+        },
+        {
+          "id": 138,
+          "productId": 138,
+          "name": "Baseball Ball",
+          "variant": {
+            "id": "SPO-BRD-BAS-138",
+            "color": "Tiêu chuẩn",
+            "size": "Phiên bản gốc",
+            "stock": 100
+          },
+          "quantity": 2,
+          "price": 224750,
+          "image": "https://cdn.dummyjson.com/product-images/sports-accessories/baseball-ball/thumbnail.webp",
+          "shopId": "demo-shop-3",
+          "shop": "Shop Đời sống · Demo",
+          "stock": 100
+        }
+      ],
+      "suborders": [
+        {
+          "shopId": "demo-shop-3",
+          "shop": "Shop Đời sống · Demo",
+          "items": [
+            {
+              "id": 162,
+              "productId": 162,
+              "name": "Blue Frock",
+              "variant": {
+                "id": "TOP-BRD-BLU-162",
+                "color": "Tiêu chuẩn",
+                "size": "Phiên bản gốc",
+                "stock": 52
+              },
+              "quantity": 4,
+              "price": 749750,
+              "image": "https://cdn.dummyjson.com/product-images/tops/blue-frock/thumbnail.webp",
+              "shopId": "demo-shop-3",
+              "shop": "Shop Đời sống · Demo",
+              "stock": 52
+            },
+            {
+              "id": 113,
+              "productId": 113,
+              "name": "Generic Motorcycle",
+              "variant": {
+                "id": "MOT-GEN-GEN-113",
+                "color": "Tiêu chuẩn",
+                "size": "Phiên bản gốc",
+                "stock": 34
+              },
+              "quantity": 3,
+              "price": 99999750,
+              "image": "https://cdn.dummyjson.com/product-images/motorcycle/generic-motorcycle/thumbnail.webp",
+              "shopId": "demo-shop-3",
+              "shop": "Shop Đời sống · Demo",
+              "stock": 34
+            },
+            {
+              "id": 138,
+              "productId": 138,
+              "name": "Baseball Ball",
+              "variant": {
+                "id": "SPO-BRD-BAS-138",
+                "color": "Tiêu chuẩn",
+                "size": "Phiên bản gốc",
+                "stock": 100
+              },
+              "quantity": 2,
+              "price": 224750,
+              "image": "https://cdn.dummyjson.com/product-images/sports-accessories/baseball-ball/thumbnail.webp",
+              "shopId": "demo-shop-3",
+              "shop": "Shop Đời sống · Demo",
+              "stock": 100
+            }
+          ],
+          "total": 303447750
+        },
+        {
+          "shopId": "demo-shop-2",
+          "shop": "Shop Công nghệ · Demo",
+          "items": [
+            {
+              "id": 122,
+              "productId": 122,
+              "name": "iPhone 6",
+              "variant": {
+                "id": "SMA-APP-IPH-122",
+                "color": "Tiêu chuẩn",
+                "size": "Phiên bản gốc",
+                "stock": 60
+              },
+              "quantity": 3,
+              "price": 7499750,
+              "image": "https://cdn.dummyjson.com/product-images/smartphones/iphone-6/thumbnail.webp",
+              "shopId": "demo-shop-2",
+              "shop": "Shop Công nghệ · Demo",
+              "stock": 60
+            }
+          ],
+          "total": 22499250
+        }
+      ],
+      "shop": "Shop Đời sống · Demo, Shop Công nghệ · Demo",
+      "total": 325947000,
+      "shippingFee": 0
+    },
+    {
+      "id": "DEMO-2",
+      "sourceCartId": 2,
+      "demo": true,
+      "status": "shipping",
+      "statusLabel": "Đang vận chuyển",
+      "date": "2026-09-21",
+      "items": [
+        {
+          "id": 86,
+          "productId": 86,
+          "name": "Man Short Sleeve Shirt",
+          "variant": {
+            "id": "MEN-CAS-SHO-086",
+            "color": "Tiêu chuẩn",
+            "size": "Phiên bản gốc",
+            "stock": 2
+          },
+          "quantity": 5,
+          "price": 499750,
+          "image": "https://cdn.dummyjson.com/product-images/mens-shirts/man-short-sleeve-shirt/thumbnail.webp",
+          "shopId": "demo-shop-3",
+          "shop": "Shop Đời sống · Demo",
+          "stock": 2
+        },
+        {
+          "id": 104,
+          "productId": 104,
+          "name": "Apple iPhone Charger",
+          "variant": {
+            "id": "MOB-APP-APP-104",
+            "color": "Tiêu chuẩn",
+            "size": "Phiên bản gốc",
+            "stock": 31
+          },
+          "quantity": 2,
+          "price": 499750,
+          "image": "https://cdn.dummyjson.com/product-images/mobile-accessories/apple-iphone-charger/thumbnail.webp",
+          "shopId": "demo-shop-2",
+          "shop": "Shop Công nghệ · Demo",
+          "stock": 31
+        }
+      ],
+      "suborders": [
+        {
+          "shopId": "demo-shop-3",
+          "shop": "Shop Đời sống · Demo",
+          "items": [
+            {
+              "id": 86,
+              "productId": 86,
+              "name": "Man Short Sleeve Shirt",
+              "variant": {
+                "id": "MEN-CAS-SHO-086",
+                "color": "Tiêu chuẩn",
+                "size": "Phiên bản gốc",
+                "stock": 2
+              },
+              "quantity": 5,
+              "price": 499750,
+              "image": "https://cdn.dummyjson.com/product-images/mens-shirts/man-short-sleeve-shirt/thumbnail.webp",
+              "shopId": "demo-shop-3",
+              "shop": "Shop Đời sống · Demo",
+              "stock": 2
+            }
+          ],
+          "total": 2498750
+        },
+        {
+          "shopId": "demo-shop-2",
+          "shop": "Shop Công nghệ · Demo",
+          "items": [
+            {
+              "id": 104,
+              "productId": 104,
+              "name": "Apple iPhone Charger",
+              "variant": {
+                "id": "MOB-APP-APP-104",
+                "color": "Tiêu chuẩn",
+                "size": "Phiên bản gốc",
+                "stock": 31
+              },
+              "quantity": 2,
+              "price": 499750,
+              "image": "https://cdn.dummyjson.com/product-images/mobile-accessories/apple-iphone-charger/thumbnail.webp",
+              "shopId": "demo-shop-2",
+              "shop": "Shop Công nghệ · Demo",
+              "stock": 31
+            }
+          ],
+          "total": 999500
+        }
+      ],
+      "shop": "Shop Đời sống · Demo, Shop Công nghệ · Demo",
+      "total": 3498250,
+      "shippingFee": 0
+    },
+    {
+      "id": "DEMO-3",
+      "sourceCartId": 3,
+      "demo": true,
+      "status": "pending",
+      "statusLabel": "Chờ xác nhận",
+      "date": "2026-09-22",
+      "items": [
+        {
+          "id": 24,
+          "productId": 24,
+          "name": "Fish Steak",
+          "variant": {
+            "id": "GRO-BRD-FIS-024",
+            "color": "Tiêu chuẩn",
+            "size": "Phiên bản gốc",
+            "stock": 74
+          },
+          "quantity": 1,
+          "price": 374750,
+          "image": "https://cdn.dummyjson.com/product-images/groceries/fish-steak/thumbnail.webp",
+          "shopId": "demo-shop-3",
+          "shop": "Shop Đời sống · Demo",
+          "stock": 74
+        },
+        {
+          "id": 123,
+          "productId": 123,
+          "name": "iPhone 13 Pro",
+          "variant": {
+            "id": "SMA-APP-IPH-123",
+            "color": "Tiêu chuẩn",
+            "size": "Phiên bản gốc",
+            "stock": 56
+          },
+          "quantity": 1,
+          "price": 27499750,
+          "image": "https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp",
+          "shopId": "demo-shop-2",
+          "shop": "Shop Công nghệ · Demo",
+          "stock": 56
+        },
+        {
+          "id": 129,
+          "productId": 129,
+          "name": "Realme X",
+          "variant": {
+            "id": "SMA-REA-REA-129",
+            "color": "Tiêu chuẩn",
+            "size": "Phiên bản gốc",
+            "stock": 12
+          },
+          "quantity": 1,
+          "price": 7499750,
+          "image": "https://cdn.dummyjson.com/product-images/smartphones/realme-x/thumbnail.webp",
+          "shopId": "demo-shop-2",
+          "shop": "Shop Công nghệ · Demo",
+          "stock": 12
+        },
+        {
+          "id": 86,
+          "productId": 86,
+          "name": "Man Short Sleeve Shirt",
+          "variant": {
+            "id": "MEN-CAS-SHO-086",
+            "color": "Tiêu chuẩn",
+            "size": "Phiên bản gốc",
+            "stock": 2
+          },
+          "quantity": 5,
+          "price": 499750,
+          "image": "https://cdn.dummyjson.com/product-images/mens-shirts/man-short-sleeve-shirt/thumbnail.webp",
+          "shopId": "demo-shop-3",
+          "shop": "Shop Đời sống · Demo",
+          "stock": 2
+        },
+        {
+          "id": 8,
+          "productId": 8,
+          "name": "Dior J'adore",
+          "variant": {
+            "id": "FRA-DIO-DIO-008",
+            "color": "Tiêu chuẩn",
+            "size": "Phiên bản gốc",
+            "stock": 98
+          },
+          "quantity": 2,
+          "price": 2249750,
+          "image": "https://cdn.dummyjson.com/product-images/fragrances/dior-j'adore/thumbnail.webp",
+          "shopId": "demo-shop-1",
+          "shop": "Shop Làm đẹp · Demo",
+          "stock": 98
+        },
+        {
+          "id": 157,
+          "productId": 157,
+          "name": "Party Glasses",
+          "variant": {
+            "id": "SUN-FAS-PAR-157",
+            "color": "Tiêu chuẩn",
+            "size": "Phiên bản gốc",
+            "stock": 86
+          },
+          "quantity": 5,
+          "price": 499750,
+          "image": "https://cdn.dummyjson.com/product-images/sunglasses/party-glasses/thumbnail.webp",
+          "shopId": "demo-shop-3",
+          "shop": "Shop Đời sống · Demo",
+          "stock": 86
+        }
+      ],
+      "suborders": [
+        {
+          "shopId": "demo-shop-3",
+          "shop": "Shop Đời sống · Demo",
+          "items": [
+            {
+              "id": 24,
+              "productId": 24,
+              "name": "Fish Steak",
+              "variant": {
+                "id": "GRO-BRD-FIS-024",
+                "color": "Tiêu chuẩn",
+                "size": "Phiên bản gốc",
+                "stock": 74
+              },
+              "quantity": 1,
+              "price": 374750,
+              "image": "https://cdn.dummyjson.com/product-images/groceries/fish-steak/thumbnail.webp",
+              "shopId": "demo-shop-3",
+              "shop": "Shop Đời sống · Demo",
+              "stock": 74
+            },
+            {
+              "id": 86,
+              "productId": 86,
+              "name": "Man Short Sleeve Shirt",
+              "variant": {
+                "id": "MEN-CAS-SHO-086",
+                "color": "Tiêu chuẩn",
+                "size": "Phiên bản gốc",
+                "stock": 2
+              },
+              "quantity": 5,
+              "price": 499750,
+              "image": "https://cdn.dummyjson.com/product-images/mens-shirts/man-short-sleeve-shirt/thumbnail.webp",
+              "shopId": "demo-shop-3",
+              "shop": "Shop Đời sống · Demo",
+              "stock": 2
+            },
+            {
+              "id": 157,
+              "productId": 157,
+              "name": "Party Glasses",
+              "variant": {
+                "id": "SUN-FAS-PAR-157",
+                "color": "Tiêu chuẩn",
+                "size": "Phiên bản gốc",
+                "stock": 86
+              },
+              "quantity": 5,
+              "price": 499750,
+              "image": "https://cdn.dummyjson.com/product-images/sunglasses/party-glasses/thumbnail.webp",
+              "shopId": "demo-shop-3",
+              "shop": "Shop Đời sống · Demo",
+              "stock": 86
+            }
+          ],
+          "total": 5372250
+        },
+        {
+          "shopId": "demo-shop-2",
+          "shop": "Shop Công nghệ · Demo",
+          "items": [
+            {
+              "id": 123,
+              "productId": 123,
+              "name": "iPhone 13 Pro",
+              "variant": {
+                "id": "SMA-APP-IPH-123",
+                "color": "Tiêu chuẩn",
+                "size": "Phiên bản gốc",
+                "stock": 56
+              },
+              "quantity": 1,
+              "price": 27499750,
+              "image": "https://cdn.dummyjson.com/product-images/smartphones/iphone-13-pro/thumbnail.webp",
+              "shopId": "demo-shop-2",
+              "shop": "Shop Công nghệ · Demo",
+              "stock": 56
+            },
+            {
+              "id": 129,
+              "productId": 129,
+              "name": "Realme X",
+              "variant": {
+                "id": "SMA-REA-REA-129",
+                "color": "Tiêu chuẩn",
+                "size": "Phiên bản gốc",
+                "stock": 12
+              },
+              "quantity": 1,
+              "price": 7499750,
+              "image": "https://cdn.dummyjson.com/product-images/smartphones/realme-x/thumbnail.webp",
+              "shopId": "demo-shop-2",
+              "shop": "Shop Công nghệ · Demo",
+              "stock": 12
+            }
+          ],
+          "total": 34999500
+        },
+        {
+          "shopId": "demo-shop-1",
+          "shop": "Shop Làm đẹp · Demo",
+          "items": [
+            {
+              "id": 8,
+              "productId": 8,
+              "name": "Dior J'adore",
+              "variant": {
+                "id": "FRA-DIO-DIO-008",
+                "color": "Tiêu chuẩn",
+                "size": "Phiên bản gốc",
+                "stock": 98
+              },
+              "quantity": 2,
+              "price": 2249750,
+              "image": "https://cdn.dummyjson.com/product-images/fragrances/dior-j'adore/thumbnail.webp",
+              "shopId": "demo-shop-1",
+              "shop": "Shop Làm đẹp · Demo",
+              "stock": 98
+            }
+          ],
+          "total": 4499500
+        }
+      ],
+      "shop": "Shop Đời sống · Demo, Shop Công nghệ · Demo, Shop Làm đẹp · Demo",
+      "total": 44871250,
+      "shippingFee": 0
+    }
+  ],
+  "categories": [
+    {
+      "id": "beauty",
+      "name": "Mỹ phẩm"
+    },
+    {
+      "id": "fragrances",
+      "name": "Nước hoa"
+    },
+    {
+      "id": "furniture",
+      "name": "Nội thất"
+    },
+    {
+      "id": "laptops",
+      "name": "Laptop"
+    },
+    {
+      "id": "mens-shirts",
+      "name": "Áo nam"
+    },
+    {
+      "id": "smartphones",
+      "name": "Điện thoại"
+    },
+    {
+      "id": "womens-bags",
+      "name": "Túi nữ"
+    },
+    {
+      "id": "womens-shoes",
+      "name": "Giày nữ"
+    },
+    {
+      "id": "tops",
+      "name": "Áo"
+    },
+    {
+      "id": "motorcycle",
+      "name": "Xe máy"
+    },
+    {
+      "id": "sports-accessories",
+      "name": "Đồ thể thao"
+    },
+    {
+      "id": "mobile-accessories",
+      "name": "Phụ kiện điện thoại"
+    },
+    {
+      "id": "groceries",
+      "name": "Thực phẩm"
+    },
+    {
+      "id": "sunglasses",
+      "name": "Kính mắt"
+    }
+  ],
+  "shops": [
+    {
+      "id": "demo-shop-1",
+      "name": "Shop Làm đẹp · Demo",
+      "demo": true
+    },
+    {
+      "id": "demo-shop-2",
+      "name": "Shop Công nghệ · Demo",
+      "demo": true
+    },
+    {
+      "id": "demo-shop-3",
+      "name": "Shop Đời sống · Demo",
+      "demo": true
+    }
+  ]
+}

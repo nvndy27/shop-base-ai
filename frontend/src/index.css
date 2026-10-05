@@ -1,0 +1,456 @@
+/* CSS Tokens from DESIGN.md */
+:root {
+  color-scheme: light;
+  --canvas: #faf9f5;
+  --surface: #f5f0e8;
+  --card: #efe9de;
+  --ink: #141413;
+  --body: #3d3d3a;
+  --muted: #6c6a64;
+  --border: #e6dfd8;
+  --primary: #cc785c;
+  --primary-action: #a9583e;
+  --dark: #181715;
+  --error: #c64545;
+  --success: #257044;
+  --on-accent: white;
+  --primary-hover: #8f4a35;
+  --product-hover-shadow: -8px 12px 26px -12px rgba(56, 189, 248, 0.55), 8px 12px 26px -12px rgba(139, 92, 246, 0.45), 0 3px 10px rgba(0, 0, 0, 0.08);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --canvas: #171715;
+  --surface: #22221f;
+  --card: #2d2c27;
+  --ink: #f5f1e8;
+  --body: #ddd9cf;
+  --muted: #b3aea3;
+  --border: #49463e;
+  --primary: #e5a68b;
+  --primary-action: #e5a68b;
+  --primary-hover: #f1bba3;
+  --on-accent: #241b16;
+  --dark: #11110f;
+  --error: #f28c8c;
+  --success: #8bcba4;
+  --product-hover-shadow: -8px 12px 28px -10px rgba(56, 189, 248, 0.4), 8px 12px 28px -10px rgba(139, 92, 246, 0.38), 0 3px 10px rgba(0, 0, 0, 0.2);
+}
+
+html { scroll-padding-top: 96px; }
+
+/* Font sizes */
+:root {
+  --font-size-h1-desktop: 40px;
+  --font-size-h1-mobile: 30px;
+  --font-size-heading-small: 24px;
+  --font-size-body: 16px;
+  --font-size-label: 14px;
+  --font-size-metadata: 12px;
+}
+
+/* Spacing — extended past the DESIGN.md scale so page CSS never references an
+   undefined token (an undefined var() silently drops the whole declaration). */
+:root {
+  --spacing-2: 2px;
+  --spacing-4: 4px;
+  --spacing-6: 6px;
+  --spacing-8: 8px;
+  --spacing-10: 10px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-48: 48px;
+}
+
+/* Radii */
+:root {
+  --radius-input-button: 8px;
+  --radius-card: 12px;
+  --radius-badge-pill: 9999px; /* for pill */
+}
+
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  background-color: var(--canvas);
+  color: var(--body);
+  font-family: Inter, system-ui, sans-serif;
+}
+
+/* The sticky header must be contained by the full page, beyond one viewport. */
+#root { height: auto; min-height: 100%; }
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: Merriweather, Georgia, serif;
+  font-weight: 400;
+  color: var(--ink);
+}
+
+h1 {
+  font-size: var(--font-size-h1-desktop);
+  line-height: 1.2;
+}
+
+@media (max-width: 640px) {
+  h1 {
+    font-size: var(--font-size-h1-mobile);
+  }
+}
+
+h2, h3, h4 {
+  font-size: var(--font-size-heading-small);
+}
+
+/* Body text */
+p, li, label, input, textarea, select {
+  font-size: var(--font-size-body);
+  line-height: 1.5;
+}
+
+/* Quantity stepper — shared by Cart and ProductDetail. The global 44px
+   min-height on button would otherwise stretch these +/- controls. */
+.quantity-selector {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-4);
+}
+.quantity-selector button {
+  width: 32px;
+  height: 32px;
+  min-width: 32px;
+  min-height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-input-button);
+  color: var(--body);
+  cursor: pointer;
+}
+.quantity-selector button:hover:not(:disabled) {
+  background-color: var(--primary);
+  color: var(--on-accent);
+}
+.quantity-selector button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.quantity-selector span {
+  min-width: 28px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Links */
+a {
+  color: var(--primary);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+/* Buttons */
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: var(--radius-input-button);
+  font-size: var(--font-size-body);
+  font-weight: 500;
+  transition: background-color 0.2s, color 0.2s;
+}
+button.primary {
+  background-color: var(--primary-action);
+  color: var(--on-accent);
+}
+button.primary:hover {
+  background-color: var(--primary-hover); /* darker */
+}
+button.secondary {
+  background-color: transparent;
+  color: var(--primary);
+  border: 1px solid var(--primary);
+}
+button.secondary:hover {
+  background-color: var(--primary);
+  color: var(--on-accent);
+}
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Shared action buttons — single source of truth so padding stays identical
+   across Cart / Orders / Profile / ProductDetail. Page CSS must not redefine these. */
+.button-primary,
+.button-secondary,
+.button-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-8);
+  min-height: 44px;
+  padding: 0 var(--spacing-24);
+  border: 1px solid transparent;
+  border-radius: var(--radius-input-button);
+  font-family: Inter, system-ui, sans-serif;
+  font-size: var(--font-size-body);
+  font-weight: 500;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
+}
+.button-primary {
+  background-color: var(--primary-action);
+  color: var(--on-accent);
+}
+.button-primary:hover:not(:disabled) {
+  background-color: var(--primary-hover);
+}
+.button-secondary {
+  background-color: var(--surface);
+  color: var(--ink);
+  border-color: var(--border);
+}
+.button-secondary:hover:not(:disabled) {
+  border-color: var(--ink);
+}
+.button-outline {
+  background-color: transparent;
+  color: var(--primary-action);
+  border-color: var(--primary);
+}
+.button-outline:hover:not(:disabled) {
+  background-color: var(--primary-action);
+  border-color: var(--primary-action);
+  color: var(--on-accent);
+}
+.button-link {
+  color: var(--primary-action);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.button-link:hover {
+  text-decoration: none;
+}
+
+/* Page navigation has its own spacing and a comfortable touch target. */
+.page-back-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-8);
+  width: fit-content;
+  max-width: 100%;
+  min-height: 44px;
+  margin-bottom: var(--spacing-24);
+  padding: var(--spacing-10) var(--spacing-16);
+  border: 1px solid var(--primary-action);
+  border-radius: var(--radius-input-button);
+  background-color: var(--surface);
+  color: var(--ink);
+  font-size: var(--font-size-label);
+  font-weight: 600;
+  line-height: 1.5;
+  text-decoration: none;
+}
+.page-back-link:hover {
+  background-color: var(--card);
+  color: var(--primary-action);
+  text-decoration: none;
+}
+.page-back-link:focus-visible {
+  outline: 2px solid var(--primary-action);
+  outline-offset: 4px;
+}
+@media (max-width: 640px) {
+  .page-back-link {
+    margin-bottom: var(--spacing-16);
+  }
+}
+.button-primary:disabled,
+.button-secondary:disabled,
+.button-outline:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Inputs */
+.account-page {
+  --radius-card: 24px;
+  --radius-input-button: 12px;
+}
+.account-page > h1 {
+  margin-bottom: var(--spacing-8);
+  font-size: 32px;
+}
+.account-page-description {
+  margin-bottom: var(--spacing-24);
+  color: var(--muted);
+}
+.demo-notice {
+  padding: var(--spacing-12) var(--spacing-16);
+  margin-bottom: var(--spacing-24);
+  border: 1px dashed var(--border);
+  border-radius: 14px;
+  color: var(--body);
+  font-size: var(--font-size-label);
+  background-color: var(--surface);
+}
+.account-page .button-primary,
+.account-page .button-secondary,
+.account-page .button-outline {
+  white-space: normal;
+  padding: var(--spacing-10) var(--spacing-16);
+}
+.account-page button:focus-visible,
+.home-toolbar a:focus-visible,
+.home-toolbar button:focus-visible {
+  outline: 2px solid var(--primary-action);
+  outline-offset: 3px;
+}
+@media (max-width: 640px) {
+  .account-page > h1 {
+    font-size: 28px;
+  }
+}
+
+/* Inputs */
+input, textarea, select {
+  padding: var(--spacing-8) var(--spacing-12);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-input-button);
+  background-color: var(--surface);
+  color: var(--ink);
+}
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(204, 120, 92, 0.2);
+}
+
+/* Layout container */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-24);
+}
+@media (max-width: 640px) {
+  .container {
+    padding: 0 var(--spacing-16);
+  }
+}
+
+/* Grid */
+.grid {
+  display: grid;
+  gap: var(--spacing-24);
+}
+.grid-2-cols {
+  grid-template-columns: repeat(2, 1fr);
+}
+.grid-3-cols {
+  grid-template-columns: repeat(3, 1fr);
+}
+.grid-4-cols {
+  grid-template-columns: repeat(4, 1fr);
+}
+@media (max-width: 1024px) {
+  .grid-4-cols {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 640px) {
+  .grid-2-cols,
+  .grid-3-cols,
+  .grid-4-cols {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Card */
+.card {
+  background-color: var(--card);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-24);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Badge */
+.badge {
+  display: inline-block;
+  padding: var(--spacing-4) var(--spacing-8);
+  border-radius: var(--radius-badge-pill);
+  font-size: var(--font-size-metadata);
+  font-weight: 500;
+}
+.badge-primary {
+  background-color: var(--primary);
+  color: var(--on-accent);
+}
+.badge-success {
+  background-color: var(--success);
+  color: var(--on-accent);
+}
+.badge-error {
+  background-color: var(--error);
+  color: var(--on-accent);
+}
+
+/* Alert */
+.alert {
+  padding: var(--spacing-16);
+  border-radius: var(--radius-input-button);
+  margin-bottom: var(--spacing-24);
+}
+.alert-error {
+  background-color: rgba(198, 69, 69, 0.1);
+  border: 1px solid var(--error);
+  color: var(--error);
+}
+.alert-success {
+  background-color: rgba(37, 112, 68, 0.1);
+  border: 1px solid var(--success);
+  color: var(--success);
+}
+
+/* Loading skeleton */
+.skeleton {
+  background-color: var(--surface);
+  border-radius: var(--radius-card);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+/* Focus visible */
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Touch target */
+button, input, textarea, select, a, label {
+  min-height: 44px;
+  min-width: 44px;
+}

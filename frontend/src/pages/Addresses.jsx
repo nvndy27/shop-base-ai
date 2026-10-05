@@ -1,0 +1,12 @@
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { commerceApi,useCommerceResource } from '../commerce/api';
+import ResourceStatus from '../commerce/ResourceStatus';
+import '../commerce/Commerce.css';
+const blank={recipient_name:'',phone:'',address_line:'',ward:'',district:'',province:'',is_default:false};
+const fields={recipient_name:'Họ tên người nhận',phone:'Số điện thoại (+84...)',address_line:'Số nhà, đường',ward:'Phường/Xã',district:'Quận/Huyện',province:'Tỉnh/Thành phố'};
+export default function Addresses(){const resource=useCommerceResource('/api/v1/me/addresses');const [form,setForm]=useState(blank),[id,setId]=useState(null),[busy,setBusy]=useState(false),[error,setError]=useState('');
+  async function save(e){e.preventDefault();setBusy(true);setError('');try{await commerceApi('/api/v1/me/addresses',{method:id?'PATCH':'POST',body:id?{id,...form}:form});setId(null);setForm(blank);resource.reload();}catch(e){setError(e.message);}finally{setBusy(false);}}
+  return <div className="container account-page commerce-page"><Link to="/profile" className="page-back-link">← Về tài khoản</Link><h1>Địa chỉ giao hàng</h1><ResourceStatus {...resource}/>{error&&<p role="alert">{error}</p>}<div className="commerce-stack">{resource.data?.items.map(a=><article className="commerce-panel" key={a.id}><strong>{a.recipient_name}{a.is_default?' · Mặc định':''}</strong><p>{a.phone}</p><p>{a.address_line}, {a.ward}, {a.district}, {a.province}</p><button className="button-outline" onClick={()=>{setId(a.id);setForm(Object.fromEntries(Object.keys(blank).map(k=>[k,a[k]])));}}>Sửa địa chỉ</button></article>)}
+    <form className="commerce-panel commerce-form" onSubmit={save}><h2>{id?'Sửa địa chỉ':'Thêm địa chỉ'}</h2><div className="commerce-form-grid">{Object.entries(fields).map(([key,label])=><label key={key}>{label}<input required type={key==='phone'?'tel':'text'} maxLength={key==='address_line'?300:100} value={form[key]} onChange={e=>setForm({...form,[key]:e.target.value})}/></label>)}</div><label style={{display:'flex',alignItems:'center'}}><input style={{width:'auto'}} type="checkbox" checked={form.is_default} onChange={e=>setForm({...form,is_default:e.target.checked})}/>Đặt làm mặc định</label><div className="commerce-actions"><button className="button-primary" disabled={busy}>Lưu địa chỉ</button>{id&&<button type="button" className="button-outline" onClick={()=>{setId(null);setForm(blank);}}>Hủy chỉnh sửa</button>}</div></form></div></div>;
+}

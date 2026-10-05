@@ -1,0 +1,1 @@
+export default function ResourceStatus({loading,error,reload}){if(loading)return <p role="status">Đang tải...</p>;if(error)return <div className="commerce-message" role="alert"><p>{error}</p><button type="button" className="button-outline" onClick={reload}>Thử lại</button></div>;return null;}

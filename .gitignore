@@ -1,0 +1,19 @@
+node_modules/
+.next/
+coverage/
+*.tsbuildinfo
+.env*
+!.env.example
+!.env.*.example
+
+# Local academic datasets; keep importer and source documentation in the repo.
+data/amazon-2023/
+
+# Python utility caches.
+__pycache__/
+*.pyc
+
+# Local build/tooling artifacts (not source).
+frontend/dist/
+.pnpm-store/
+.playwright-mcp/
