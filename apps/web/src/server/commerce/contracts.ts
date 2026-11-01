@@ -4,7 +4,7 @@ export const id = z.uuid();
 const version = z.number().int().positive();
 const money = z.number().int().min(1000).max(100000000);
 const text = (max:number) => z.string().trim().min(1).max(max);
-const image = z.url().max(1000).regex(/^https:\/\/(?:m\.media-amazon\.com\/images\/I\/[A-Za-z0-9_+.,%~-]+\.(?:jpg|jpeg|png|webp)|[a-z0-9]+\.supabase\.co\/storage\/v1\/object\/public\/course-product-images\/[0-9a-f-]+\/[0-9a-f-]+\.webp)$/);
+const image = z.url().max(1000).regex(/^(?:https:\/\/(?:m\.media-amazon\.com\/images\/I\/[A-Za-z0-9_+.,%~-]+\.(?:jpg|jpeg|png|webp)|[a-z0-9]+\.supabase\.co\/storage\/v1\/object\/public\/course-product-images\/[0-9a-f-]+\/[0-9a-f-]+\.webp)|http:\/\/(?:127\.0\.0\.1|localhost):54321\/storage\/v1\/object\/public\/course-product-images\/[0-9a-f-]+\/[0-9a-f-]+\.webp)$/);
 const details = {title:text(200),description:z.string().max(5000),category:categoryId,image_urls:z.array(image).min(1).max(12)};
 const variant = {sku:text(60),name:text(100),price_vnd:money};
 export const inputs = {

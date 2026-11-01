@@ -12,6 +12,10 @@ export function authRetryDelay(error) {
 
 export function authMessage(error) {
   if (error instanceof AuthUiError) return error.message;
+  if (error?.code === 'invalid_credentials') return 'Email hoặc mật khẩu không đúng.';
+  if (error?.code === 'email_not_confirmed') return 'Email chưa được xác nhận. Vui lòng mở liên kết xác nhận trước khi đăng nhập.';
+  if (error?.code === 'weak_password') return 'Mật khẩu chưa đáp ứng yêu cầu của hệ thống. Vui lòng chọn mật khẩu mạnh hơn.';
+  if (error?.code === 'user_already_exists') return 'Không thể tạo tài khoản với email này. Hãy đăng nhập nếu bạn đã có tài khoản.';
   if (error?.code === 'over_email_send_rate_limit') return 'Dịch vụ đã đạt giới hạn gửi email. Hãy dùng mã đã nhận hoặc thử lại sau; gửi lại ngay sẽ không có mã mới.';
   if (error?.status === 429) return 'Bạn đã thử quá nhiều lần. Vui lòng chờ rồi thử lại.';
   if (['otp_expired', 'bad_code_verifier', 'flow_state_expired', 'flow_state_not_found'].includes(error?.code)) {
@@ -81,6 +85,24 @@ export function createAuthService(client, checkProvider = async () => {}) {
     return client.auth;
   }
   return {
+    async loginWithPassword(email, password) {
+      const normalized = normalizeEmail(email);
+      if (typeof password !== 'string' || !password || password.length > 1024) {
+        throw new AuthUiError('Vui lòng nhập mật khẩu hợp lệ.');
+      }
+      return sessionOf(await auth().signInWithPassword({ email: normalized, password }));
+    },
+    async signupWithPassword(email, password, origin) {
+      const normalized = normalizeEmail(email);
+      if (typeof password !== 'string' || password.length < 8 || password.length > 1024) {
+        throw new AuthUiError('Mật khẩu cần từ 8 đến 1024 ký tự.');
+      }
+      const emailRedirectTo = callbackUrl(origin);
+      const data = dataOf(await auth().signUp({ email: normalized, password, options: { emailRedirectTo } }));
+      // A signup response without a session is not proof of a registered identity.
+      if (!data?.session) return { session: null, confirmationRequired: true };
+      return { session: sessionOf({ data, error: null }), confirmationRequired: false };
+    },
     async sendEmailOtp(email, mode = 'signup', origin) {
       if (!['signup', 'login'].includes(mode)) throw new AuthUiError('Vui lòng chọn đăng ký hoặc đăng nhập.');
       const normalized = normalizeEmail(email);

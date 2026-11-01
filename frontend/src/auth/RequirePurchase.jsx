@@ -29,9 +29,9 @@ export default function RequirePurchase({ children }) {
   if (!result.allowed) {
     return <div className="container account-page">
       <h1>Chưa thể mua hàng</h1>
-      <p className="account-page-description" role="alert">{result.error || 'Vui lòng xác minh số điện thoại trước khi mua hàng.'}</p>
+      <p className="account-page-description" role="alert">{result.error || 'Vui lòng kiểm tra trạng thái tài khoản trước khi mua hàng.'}</p>
       <div className="settings-actions">
-        <Link className="button-primary" to="/settings">Thêm số điện thoại</Link>
+        <Link className="button-primary" to="/profile">Xem tài khoản</Link>
         <button className="button-outline" onClick={() => setRevision(value => value + 1)}>Kiểm tra lại</button>
       </div>
     </div>;

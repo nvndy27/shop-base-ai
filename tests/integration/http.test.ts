@@ -53,14 +53,14 @@ describe("M1 HTTP contract with real SQL authorization", () => {
     expect(denied.status).toBe(422);
     expect(await (await request("/me", "GET", users.buyerA)).json()).toMatchObject({ display_name: "Buyer A" });
   });
-  it("purchase eligibility requires an active SQL profile and an Auth-verified phone", async () => {
+  it("purchase eligibility allows an active email account without an Auth-verified phone", async () => {
     expect((await request("/me/purchase-eligibility", "GET")).status).toBe(401);
     const emailOnly = await request("/me/purchase-eligibility", "GET", users.buyerA);
-    expect(emailOnly.status).toBe(403);
-    expect(await emailOnly.json()).toMatchObject({ error: { code: "PHONE_REQUIRED" } });
+    expect(emailOnly.status).toBe(200);
+    expect(await emailOnly.json()).toEqual({ eligible: true });
     await setActor(db, users.buyerA);
     const session = databaseSession(db, users.buyerA);
-    session.actor.phoneVerified = true; // Auth transport fixture, never a client-controlled field.
+    expect(session.actor.phoneVerified).toBe(false);
     await expect(identityService(session).requirePurchaseEligibility()).resolves.toBeUndefined();
   });
   it("B cannot read/update/delete A's address and unknown UUID behaves identically", async () => {

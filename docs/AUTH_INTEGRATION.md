@@ -15,6 +15,18 @@
 - Kiểm tra dashboard chỉ đọc ngày 02/10: main vẫn có nhãn Production, allow signup/Confirm Email bật, Email Enabled, Phone/Google Disabled. Emails hiển thị “Set up custom SMTP to edit templates”; dự án chưa có SMTP riêng để sửa mẫu OTP. Không thay provider, template hoặc secret trên cloud.
 - Kiểm thử: typecheck, 69 unit, 37 integration/SDK, frontend/backend build pass; lint không lỗi, còn warning có sẵn. Tests dùng Auth transport fixture, không chứng minh SMTP/SMS delivery hay login bằng phiên thật.
 
+## Đăng nhập đơn giản ngày 12/10/2026 (D037)
+
+- Chủ dự án chọn **email + mật khẩu tự đăng ký, giữ Supabase**. Trang `/auth` mặc định Đăng nhập, có Đăng ký và nhập lại mật khẩu; bỏ Google/phone/OTP khỏi trang này. Supabase SDK vẫn cấp phiên thật, ghi nhớ/refresh/logout và gửi bearer tới backend; không thêm PHP hoặc database tài khoản thứ hai.
+- Đăng ký dùng `signUp`, đăng nhập dùng `signInWithPassword`. Mật khẩu đăng ký từ 8 ký tự; Auth server có thể yêu cầu mạnh hơn. Không lưu mật khẩu vào storage, metadata, log hoặc API nghiệp vụ. Lựa chọn người bán chỉ là ý định onboarding, không cấp quyền.
+- Khi `signUp` không trả phiên (Confirm Email đang bật hoặc response che giấu tài khoản đã tồn tại), UI chỉ thông báo kiểm tra email và chuyển về Đăng nhập; không khẳng định đã tạo tài khoản hay tự cấp phiên. Callback cũ vẫn xử lý liên kết xác nhận signup.
+- Muốn dev **tạo tài khoản và đăng nhập ngay, không gửi email**: trên Supabase project dev riêng, bật Email/Allow new users và tắt **Confirm Email** trong cấu hình Email provider. Chưa thay cấu hình cloud trong lần sửa này. Tắt Confirm Email khiến Supabase coi email đã xác nhận mà chưa chứng minh quyền sở hữu hộp thư; không mô tả là xác minh email thật. Xem [Password-based Auth](https://supabase.com/docs/guides/auth/passwords) và [General configuration](https://supabase.com/docs/guides/auth/general-configuration).
+- Tài khoản trước đây đăng ký qua OTP có thể chưa có mật khẩu: dùng tài khoản dev mới hoặc luồng đặt lại mật khẩu của Supabase đã cấu hình; UI đặt lại mật khẩu chưa thuộc lần sửa này.
+- **Giới hạn mua hàng vẫn còn:** server/RPC yêu cầu SĐT Auth đã xác minh. Đăng nhập password không tự mở checkout; cần quyết định riêng cho bản môn học nếu muốn bỏ SMS. Không sửa schema/permission trong lần này.
+- Kiểm thử dùng transport/storage fixture với SDK đang cài, chưa tạo tài khoản thật hoặc gửi email. Chưa nghiệm thu login/signup cloud; M1 chưa hoàn tất.
+
+Các mục OTP dưới đây là lịch sử; mô tả giao diện và quyết định “không thêm email/password” được D037 thay thế. Adapter cũ vẫn phục vụ callback và liên kết SĐT trong Cài đặt.
+
 ## Sửa luồng OTP ngày 03/10/2026 (D034)
 
 - Chặn submit trùng trong lúc gửi/xác nhận OTP; trang auth không hiện form khi đang kiểm tra phiên hoặc đã có user.

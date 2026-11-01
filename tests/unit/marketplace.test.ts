@@ -15,6 +15,14 @@ describe('Commerce API boundaries',()=>{
     expect(inputs.cart_put.safeParse({variant_id:shop,quantity:1,price:1}).success).toBe(false);
     expect(inputs.seller_variant.safeParse({shop_id:shop,product_id:shop,id:shop,sku:'SKU',name:'Blue',price_vnd:10000,active:true}).success).toBe(false);
   });
+  it('supports local Storage URLs on the fixed dev port without accepting arbitrary image hosts',()=>{
+    const input={shop_id:shop,title:'Local',description:'',category:'All_Beauty',sku:'LOCAL',name:'Default',price_vnd:10000,stock:1};
+    const path=`/storage/v1/object/public/course-product-images/${shop}/${shop}.webp`;
+    expect(inputs.seller_create.safeParse({...input,image_urls:[`http://127.0.0.1:54321${path}`]}).success).toBe(true);
+    for(const origin of ['http://evil.test:54321','http://127.0.0.1:3000','http://localhost.evil.test:54321','http://user:pass@localhost:54321']){
+      expect(inputs.seller_create.safeParse({...input,image_urls:[origin+path]}).success).toBe(false);
+    }
+  });
   it('rejects cross-origin requests before authentication and prevents path scope overrides',async()=>{
     const authenticate=vi.fn(),rpc=vi.fn();const handler=createCommerceHandler({authenticate,rpc,appOrigin:()=> 'http://localhost:5175',search:vi.fn()});
     const foreign=await handler(new Request('http://localhost/api/v1/cart',{headers:{Origin:'https://evil.invalid'}}));expect(foreign.status).toBe(403);expect(authenticate).not.toHaveBeenCalled();

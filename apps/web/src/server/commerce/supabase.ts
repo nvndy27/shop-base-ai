@@ -15,6 +15,7 @@ export async function commerceRpc(request:Request|null,p_op:Operation,p_input:un
   if(error){
     if(error.code==='P0001'&&conflicts[error.message])throw new AppError(409,error.message,conflicts[error.message]!);
     if(error.code==='42501'&&error.message==='PHONE_REQUIRED')throw new AppError(403,'PHONE_REQUIRED','Vui lòng xác minh số điện thoại trước khi đặt hàng.');
+    if(error.code==='42501'&&error.message==='IDENTITY_UNVERIFIED')throw new AppError(403,'IDENTITY_UNVERIFIED','Vui lòng xác nhận tài khoản trước khi đặt hàng.');
     throw databaseError(error);
   }
   return data;

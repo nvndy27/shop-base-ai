@@ -1,3 +1,5 @@
+> Phạm vi cập nhật 29/10/2026: [REQUIREMENTS](REQUIREMENTS.md) là chuẩn nghiệm thu hiện hành; [ROADMAP](ROADMAP.md) quy định mốc C0–C6. Tài liệu bên dưới mô tả thiết kế/mã marketplace trước khi đổi phạm vi, chưa phải đặc tả triển khai module nội bộ. Caption AI ngoài phạm vi. Các bảo vệ dữ liệu, quyền và bí mật hiện có vẫn phải giữ; cập nhật chi tiết phần liên quan trong từng mốc.
+
 # Thiết kế UI
 
 Nguồn phong cách: [DESIGN-claude.md](reference/DESIGN-claude.md). Bản này chuyển phong cách editorial sang luồng mua hàng; không dùng hero marketing lớn che catalog, không đưa thuật ngữ Elasticsearch/Supabase vào giao diện khách hàng.

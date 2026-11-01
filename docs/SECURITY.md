@@ -1,3 +1,5 @@
+> Phạm vi cập nhật 29/10/2026: [REQUIREMENTS](REQUIREMENTS.md) là chuẩn nghiệm thu hiện hành; [ROADMAP](ROADMAP.md) quy định mốc C0–C6. Tài liệu bên dưới mô tả thiết kế/mã marketplace trước khi đổi phạm vi, chưa phải đặc tả triển khai module nội bộ. Caption AI ngoài phạm vi. Các bảo vệ dữ liệu, quyền và bí mật hiện có vẫn phải giữ; cập nhật chi tiết phần liên quan trong từng mốc.
+
 # Rà soát bảo mật ở mức thiết kế
 
 Trạng thái: threat model và yêu cầu kiểm soát. Đã có code backend M1, kiểm thử quyền SQL/API cục bộ và verifier schema/grants/anon/subjectless deny trên Supabase thật sau khi áp dụng migration được xác nhận. Chưa kiểm A/B qua Auth/PostgREST thật hoặc audit độc lập/vận hành, không kết luận toàn hệ thống an toàn. Severity dưới đây là mức ưu tiên của rủi ro giả định. Các chỉ dẫn Markdown không phải cơ chế cưỡng chế; phải triển khai kiểm soát ở server, DB và CI. Phạm vi bằng chứng đã có: `BACKEND_VERIFICATION.md`.

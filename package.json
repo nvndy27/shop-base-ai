@@ -5,6 +5,10 @@
   "packageManager": "pnpm@12.8.1",
   "engines": { "node": ">=22.12.0" },
   "scripts": {
+    "dev:setup": "node scripts/setup-local-dev.mjs",
+    "dev:local": "node scripts/run-local-dev.mjs",
+    "dev:verify": "node --env-file=.env.chat-dev.local scripts/verify-local-schema.mjs && node --env-file=.env.chat-dev.local scripts/verify-local-commerce.mjs && node --env-file=.env.chat-dev.local scripts/verify-chat-dev.mjs",
+    "dev:realtime": "node --env-file=.env.chat-dev.local scripts/enable-chat-realtime-local.mjs",
     "dev": "pnpm --filter @shop/web dev",
     "build": "pnpm --filter @shop/web build",
     "typecheck": "tsc --noEmit",

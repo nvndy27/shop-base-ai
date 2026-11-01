@@ -1,3 +1,18 @@
+# Quản lý bán hàng nội bộ theo requirements CSDL
+
+**Phạm vi hiện hành từ 29/10/2026:** ưu tiên requirements của project `csdl`, loại caption AI khỏi kế hoạch hiện tại. Nhân viên quản lý danh mục, sản phẩm, khách hàng, nhiều kho, tồn và đơn; nghiệm thu theo KT01–KT28. Mã marketplace/chat đang có được giữ lại, không đồng nghĩa đã đáp ứng nghiệp vụ nội bộ.
+
+- [Requirements chính thức trong repo](docs/REQUIREMENTS.md) và [file nguồn giữ nguyên](docs/reference/csdl-requirements.docx).
+- [Quy trình commit, pull, push và PR](docs/GIT_WORKFLOW.md).
+- [Roadmap mới C0–C6](docs/ROADMAP.md): baseline/thiết kế → dữ liệu nền → tồn kho → đơn nháp → xử lý đơn → tìm kiếm → nghiệm thu.
+- [Tổng quan](docs/OVERVIEW.md), [chức năng](docs/FEATURES.md), [quyết định đổi phạm vi D039](docs/DECISIONS.md#d039--ưu-tiên-requirements-csdl-và-loại-caption-ai-khỏi-phạm-vi-hiện-tại-29102026).
+
+Bước đề xuất tiếp theo là C0 kỹ thuật + C1 backend. Giữ stack và cấu trúc đang chạy; chưa thay schema, dữ liệu hay giao diện trong lượt lập kế hoạch. Phần tìm kiếm khách/đơn riêng tư cần giải quyết xung đột AGENTS trước C5.
+
+## Tài liệu và hướng dẫn triển khai trước khi đổi phạm vi
+
+Nội dung bên dưới lưu lại trạng thái sàn và cách chạy mã hiện có. Các mô tả caption, MVP M0–M7 và ưu tiên marketplace không còn là yêu cầu nghiệm thu hiện hành. Lịch sử roadmap được giữ ở [bản lưu](docs/reference/ROADMAP-marketplace-20261012.md).
+
 # Bộ đặc tả sàn thương mại điện tử
 
 Ngày: 01/10/2026 · Phiên bản đặc tả: 0.1 · Trạng thái: backend M0/M1 một phần; schema M1 đã áp dụng và kiểm tra quyền SQL trên Supabase, Auth/PostgREST ứng dụng chưa nghiệm thu.
@@ -46,11 +61,15 @@ Sàn nhiều người bán, lấy cảm hứng chức năng từ Shopee/Lazada v
 
 ## Giới hạn hiện tại
 
+Cập nhật 12/10: trang đăng nhập chuyển sang email + mật khẩu tự đăng ký, giữ Supabase cho phiên và quyền backend. Muốn dev không gửi email cần cấu hình Confirm Email trên project dev riêng; chưa thay cloud hoặc nghiệm thu tài khoản thật. Checkout vẫn yêu cầu SĐT xác minh. Xem [AUTH_INTEGRATION](docs/AUTH_INTEGRATION.md) D037.
+
 Cập nhật marketplace/COD cho môn học: đã có mã schema/RPC/API/UI và kiểm thử cục bộ cho sản phẩm có SKU/kho, seller, giỏ tài khoản, quote/đơn nhiều shop, hủy/hoàn kho, Storage ảnh và worker Elastic. Hai migration mới chưa áp dụng cloud, còn cần cấu hình server và nghiệm thu phiên thật; xem [COURSE_COMMERCE](docs/COURSE_COMMERCE.md). Caption và thanh toán online chưa triển khai.
 
 Cập nhật 03/10: catalog nguồn 20.000 sản phẩm đã nối API Supabase và Elasticsearch local; Home/chi tiết/gợi ý sử dụng API thật trên máy. Cách chạy, hợp đồng và giới hạn tại [CATALOG_API](docs/CATALOG_API.md). Chưa deploy bản mới lên Vercel hoặc triển khai seller inventory/outbox/đơn hàng thật.
 
 Cài đặt hiện có Tiếng Việt/English cho catalog; tên dịch bằng mô hình local và giá nguồn USD có thể hiển thị VND theo tỷ giá cập nhật hằng ngày. Nguồn USD và giá đơn của shop được giữ riêng; setup/giới hạn tại [CATALOG_API](docs/CATALOG_API.md).
+
+Cập nhật 05/10: đã có lát cắt 1 của M5 (chat) — schema `chat` với quyền thành viên dẫn xuất, RPC `public.chat`, API `/api/v1/chat/*` và trang Chat nối API thật; migration `202610050001_chat.sql` **chưa áp dụng cloud**. Sau rà soát đã sửa 5 lỗi thật (tải lịch sử, vòng lặp reload, đọc bảng qua RLS, shop đóng mất lịch sử phía người bán, RPC nhận `body` không phải string). Realtime, tệp đính kèm, báo cáo và chặn chưa triển khai. Xem [DECISIONS](docs/DECISIONS.md) D036.
 
 Schema M1 đã có trên Supabase; chưa xác minh login/Auth/PostgREST của ứng dụng hoặc kết nối Elasticsearch, chưa biết hợp đồng API mô hình, chưa có audit độc lập hay chứng nhận bảo mật. Các giá trị quota, timeout, SLA cần đo và hiệu chỉnh trước vận hành.
 

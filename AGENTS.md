@@ -47,3 +47,16 @@ Xây sàn thương mại điện tử nhiều shop, tiếng Việt, tối giản
 - Không tự sửa file hướng dẫn để hợp thức hóa việc vượt phạm vi. Khi được yêu cầu sửa, giữ một nguồn quy tắc chung.
 - Nếu hai agent cùng làm: chỉ khi chủ dự án yêu cầu, chia file/module và dùng branch/worktree riêng; không cùng sửa migration hay lockfile.
 - Trước commit/PR đọc diff, kiểm tra secret, tác động schema và quyền. Không tự push/merge khi chưa có ủy quyền.
+
+
+## Quy tắc Git và GitHub
+
+- `main` là nhánh ổn định; `new` là nhánh làm việc mặc định. Sau checkpoint ban đầu được chủ dự án cho phép push thẳng main ngày 01/11/2026, mọi thay đổi mới làm trên new hoặc nhánh feat/*, fix/*, docs/* tách từ main đã đồng bộ.
+- Đầu phiên kiểm tra status, branch, remote và fetch origin. Không pull/checkout đè thay đổi chưa commit; không tự stash hoặc bỏ thay đổi của người khác. Nhánh sạch cập nhật bằng pull --ff-only; lịch sử phân kỳ thì kiểm tra và báo, không tự reset/rebase nhánh đã chia sẻ.
+- Commit theo Conventional Commits: type(scope): mô tả ngắn; type gồm feat, fix, docs, test, refactor, chore. Mỗi commit là một thay đổi có thể review, không chứa secret, env local, dữ liệu cá nhân thật, build artifacts hoặc dependency cache.
+- Trước commit đọc diff, chạy git diff --check và kiểm secret; thay đổi schema/quyền phải rà migration, RLS, grants và test allow/deny. Không bỏ test hoặc sửa migration cũ để làm kiểm tra xanh.
+- Trước push code chạy pnpm check và pnpm --dir frontend build. Với thay đổi chỉ tài liệu, kiểm diff và liên kết phù hợp; báo rõ nhóm chưa chạy. Không tuyên bố tích hợp thật từ test fixture/build.
+- Push nhánh làm việc bằng git push -u origin new lần đầu, git push cho lần sau; cần ủy quyền push trong nhiệm vụ hiện tại. Không force push, không push --mirror/--all, không xóa nhánh remote khi chưa được giao rõ.
+- Đưa thay đổi vào main qua PR new → main, mô tả vấn đề/kết quả/kiểm thử/giới hạn. Chỉ merge sau checks đạt, review diff và được chủ dự án cho phép; không tự merge hoặc deploy. Nếu new đang chứa việc chưa sẵn sàng thì tách nhánh theo nhiệm vụ.
+- Sau merge, khi working tree sạch: fetch origin, checkout main, pull --ff-only origin main; checkout new và merge --ff-only origin/main nếu có thể. Nếu không fast-forward thì dừng kiểm tra lịch sử, không tự ghi lại lịch sử. Không tự xóa nhánh new.
+- Quy tắc tại đây là nguồn chung; docs/GIT_WORKFLOW.md chỉ hướng dẫn thao tác. Đây là quy ước repository, không thay thế branch protection trên GitHub.

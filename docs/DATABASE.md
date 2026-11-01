@@ -1,3 +1,5 @@
+> Phạm vi cập nhật 29/10/2026: [REQUIREMENTS](REQUIREMENTS.md) là chuẩn nghiệm thu hiện hành; [ROADMAP](ROADMAP.md) quy định mốc C0–C6. Tài liệu bên dưới mô tả thiết kế/mã marketplace trước khi đổi phạm vi, chưa phải đặc tả triển khai module nội bộ. Caption AI ngoài phạm vi. Các bảo vệ dữ liệu, quyền và bí mật hiện có vẫn phải giữ; cập nhật chi tiết phần liên quan trong từng mốc.
+
 # Mô hình dữ liệu và quyền
 
 Đây là thiết kế schema, không phải SQL có thể áp dụng ngay. Migration phải kèm constraint, policy, grant và test tương ứng; không suy ra an toàn từ tên bảng.
@@ -80,3 +82,8 @@ Một transaction SQL/RPC server-authorized: kiểm user/shop/SKU → lấy giá
 Khóa SKU theo thứ tự ổn định để giảm deadlock. Timeout thanh toán thì worker release reservation nguyên tử và idempotent. Khi shipped, giảm on_hand và reserved một lần; cancel thì release reserved một lần. Webhook paid đến sau expiry phải kiểm lại kho, đưa vào xử lý exception/hoàn tiền nếu không thực hiện được; không tự xác nhận đơn thiếu hàng.
 
 Retain lịch sử đơn/thanh toán theo policy sẽ chốt; export/xóa dữ liệu có audit. Backup và thử restore là điều kiện vận hành, không chỉ bật tùy chọn backup.
+
+
+## Sales C0/C1 — 29/10/2026
+
+Thiết kế hiện hành tám bảng, đầy đủ PK/FK/constraint/index/vòng đời và kế hoạch C2–C4 tại [SALES_DESIGN](SALES_DESIGN.md). Migration bổ sung `202610290001_sales_foundation.sql` triển khai đúng bốn bảng nền và bảng kỹ thuật staff. Không đổi commerce, không migrate dữ liệu marketplace. Customers độc lập Auth. C1 mới có FK products → categories; tham chiếu tồn/đơn/lịch sử chưa tồn tại nên chưa kiểm KT21/22 phần đó. Giá được kiểm kiểu số/nguyên/range trong RPC trước NUMERIC(14,0), tránh làm tròn. Direct DML bị thu hồi. Migration chưa apply Supabase; rollback vận hành bằng tắt sales và forward-fix, không drop dữ liệu. Không áp dụng bootstrap test lên môi trường thật.

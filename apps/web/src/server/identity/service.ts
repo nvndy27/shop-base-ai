@@ -17,8 +17,8 @@ export function identityService(session: Session): IdentityService {
     },
     async requirePurchaseEligibility() {
       await activeProfile();
-      if (session.actor.phoneVerified !== true) {
-        throw new AppError(403, "PHONE_REQUIRED", "Vui lòng thêm và xác minh số điện thoại trước khi mua hàng.");
+      if (session.actor.verified !== true) {
+        throw new AppError(403, "IDENTITY_UNVERIFIED", "Vui lòng xác nhận tài khoản trước khi mua hàng.");
       }
     },
     me: activeProfile,

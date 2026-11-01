@@ -30,7 +30,7 @@ describe('Persisted course marketplace: money, stock and authorization',()=>{
   beforeAll(async()=>{
     db=await createDatabase();
     await db.exec(await readFile(new URL('../../supabase/migrations/202610030003_marketplace_cod.sql',import.meta.url),'utf8'));
-    await db.query('update auth.users set phone_confirmed_at=now() where id=$1',[users.buyerA]);
+    await db.exec(await readFile(new URL('../../supabase/migrations/202610120001_email_password_cod.sql',import.meta.url),'utf8'));
     a=await publish(shops.a,users.sellerA); b=await publish(shops.b,users.sellerB);
     await setActor(db,users.buyerA);
     address=(await db.query<{result:{id:string}}>('select public.create_address($1) result',[addressFixture])).rows[0]!.result.id;
@@ -70,15 +70,28 @@ describe('Persisted course marketplace: money, stock and authorization',()=>{
     await rpc('order_cancel',{id:order.id,reason:'Course cancellation retry'});
     await db.exec('reset role'); expect((await db.query<{reserved:number}>('select reserved from commerce.inventory')).rows.every(x=>x.reserved===0)).toBe(true);
   });
-  it('stale quote after price change creates no order; unauthenticated phone blocks direct RPC',async()=>{
+  it('stale quote creates no order; unconfirmed identity blocks direct RPC',async()=>{
     await setActor(db,users.buyerA); await rpc('cart_put',{variant_id:a.variants[0]!.id,quantity:1});
     const q=await rpc<{id:string}>('quote');
     await setActor(db,users.sellerA);
     a=await rpc<Product>('seller_variant',{shop_id:shops.a,product_id:a.id,id:a.variants[0]!.id,version:a.variants[0]!.version,sku:input.sku,name:input.name,price_vnd:120000,active:true});
     await setActor(db,users.buyerA);
     await expect(rpc('order_create',{quote_id:q.id,address_id:address,request_key:randomUUID(),payment_method:'cod'})).rejects.toMatchObject({message:'PRICE_CHANGED'});
+    await setActor(db,users.unverified);
+    await expect(rpc('order_create',{quote_id:q.id,address_id:address,request_key:randomUUID(),payment_method:'cod'})).rejects.toMatchObject({message:'IDENTITY_UNVERIFIED'});
+  });
+  it('email-only COD still rejects foreign addresses and banned accounts',async()=>{
     await setActor(db,users.buyerB);
-    await expect(rpc('order_create',{quote_id:q.id,address_id:address,request_key:randomUUID(),payment_method:'cod'})).rejects.toMatchObject({message:'PHONE_REQUIRED'});
+    await rpc('cart_put',{variant_id:a.variants[0]!.id,quantity:1});
+    const q=await rpc<{id:string}>('quote');
+    const body={quote_id:q.id,address_id:address,request_key:randomUUID(),payment_method:'cod'};
+    await expect(rpc('order_create',body)).rejects.toMatchObject({code:'P0002'});
+    await db.exec('reset role');
+    await db.query("update public.profiles set status='banned' where user_id=$1",[users.buyerB]);
+    await setActor(db,users.buyerB);
+    await expect(rpc('order_create',body)).rejects.toMatchObject({code:'42501'});
+    await db.exec('reset role');
+    await db.query("update public.profiles set status='active' where user_id=$1",[users.buyerB]);
   });
   it('valid transitions consume stock once; buyer cannot cancel shipped and seller cannot forge version',async()=>{
     const {order}=await quoteOrder(); const sub=order.shops[0]!;
@@ -111,7 +124,7 @@ describe('Persisted course marketplace: money, stock and authorization',()=>{
   });
   it('two previously valid quotes cannot consume the last unit twice; expiry releases once',async()=>{
     await db.exec('reset role');await db.query('update commerce.inventory set on_hand=1 where variant_id=$1',[a.variants[0]!.id]);
-    await db.query('update auth.users set phone_confirmed_at=now() where id=$1',[users.buyerB]);
+
     await setActor(db,users.buyerA);await rpc('cart_put',{variant_id:a.variants[0]!.id,quantity:1});const qa=await rpc<{id:string}>('quote');
     await setActor(db,users.buyerB);const ab=(await db.query<{result:{id:string}}>('select public.create_address($1) result',[addressFixture])).rows[0]!.result.id;
     await rpc('cart_put',{variant_id:a.variants[0]!.id,quantity:1});const qb=await rpc<{id:string}>('quote');

@@ -1,3 +1,5 @@
+> Phạm vi cập nhật 29/10/2026: [REQUIREMENTS](REQUIREMENTS.md) là chuẩn nghiệm thu hiện hành; [ROADMAP](ROADMAP.md) quy định mốc C0–C6. Tài liệu bên dưới mô tả thiết kế/mã marketplace trước khi đổi phạm vi, chưa phải đặc tả triển khai module nội bộ. Caption AI ngoài phạm vi. Các bảo vệ dữ liệu, quyền và bí mật hiện có vẫn phải giữ; cập nhật chi tiết phần liên quan trong từng mốc.
+
 # Tích hợp dịch vụ
 
 Trạng thái ngày 01/10/2026: đã có backend Supabase adapter M1 tại `apps/web/src/server/adapters/supabase.ts`, xác minh bearer bằng `getUser` và query/RPC theo JWT người dùng. Schema M1 đã áp dụng lên Supabase được chỉ định; SQL roles/grants/deny checks thật đã kiểm tra. Google/phone flow, JWT/PostgREST của ứng dụng và frontend session lifecycle chưa nghiệm thu. Không có adapter Elastic/caption/payment chạy thật ở lát cắt này. Xem `BACKEND_VERIFICATION.md`; không coi transport giả trong unit test là tích hợp provider hoàn thành.

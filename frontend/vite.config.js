@@ -41,6 +41,8 @@ export default defineConfig(({ mode }) => {
     define: {
       'import.meta.env.VITE_SUPABASE_URL': JSON.stringify(auth.url),
       'import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY': JSON.stringify(auth.key),
+      // Explicit public flag; disabled until real chat/JWT acceptance and migration succeed.
+      'import.meta.env.VITE_CHAT_REALTIME_ENABLED': JSON.stringify(env.CHAT_REALTIME_ENABLED === 'true'),
     },
     server: {
       host: 'localhost',

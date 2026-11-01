@@ -7,7 +7,7 @@ const messages = {
   FORBIDDEN: 'Bạn không có quyền thực hiện thao tác này.',
   VALIDATION_ERROR: 'Dữ liệu không hợp lệ.',
   CONFLICT: 'Dữ liệu đã tồn tại. Vui lòng kiểm tra và chọn thông tin khác.',
-  IDENTITY_UNVERIFIED: 'Vui lòng xác minh email hoặc số điện thoại trước khi đăng ký shop.',
+  IDENTITY_UNVERIFIED: 'Vui lòng xác nhận email hoặc số điện thoại trước khi tiếp tục.',
   SERVICE_UNAVAILABLE: 'Dịch vụ tạm thời không khả dụng. Vui lòng thử lại sau.',
   OUT_OF_STOCK: 'Số lượng vượt tồn kho. Vui lòng cập nhật giỏ hàng.',
   PRICE_CHANGED: 'Giá hoặc giỏ hàng đã thay đổi. Vui lòng lấy báo giá mới.',
@@ -20,7 +20,9 @@ const messages = {
 
 export function createApi(client, fetcher = fetch) {
   return async (path, { method = 'GET', body, signal } = {}) => {
-    if (!/^\/api\/v1\/[A-Za-z0-9/_-]+$/.test(path)) throw new AuthUiError('Endpoint không hợp lệ.');
+    // Optional query string, restricted to a safe charset: callers build it with
+    // URLSearchParams, so `?`/`=`/`&`/`%` must pass, while spaces, `#` and quotes must not.
+    if (!/^\/api\/v1\/[A-Za-z0-9/_-]+(?:\?[A-Za-z0-9_.%&+=-]*)?$/.test(path)) throw new AuthUiError('Endpoint không hợp lệ.');
     if (!client) throw new AuthUiError('Supabase chưa được cấu hình.');
     const { data, error } = await client.auth.getSession();
     if (error || !data.session?.access_token) throw new AuthUiError('Vui lòng đăng nhập lại.');

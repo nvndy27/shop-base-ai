@@ -79,6 +79,36 @@ afterEach(() => {
 });
 
 describe('installed Supabase SDK session lifecycle', () => {
+  it('logs in with a password grant and restores the persisted identity in a new client', async () => {
+    const state = setup();
+    const session = await state.service.loginWithPassword(' Test@Example.Invalid ', 'fixture-password');
+    expect(session.user.id).toBe(actor.id);
+    const request = state.events.find(event => event.grant === 'password');
+    expect(request.body).toMatchObject({ email: actor.email, password: 'fixture-password' });
+    expect(state.events.some(event => event.path.endsWith('/otp'))).toBe(false);
+    const restored = await createAuthService(state.makeClient()).restore();
+    expect(restored.user.id).toBe(actor.id);
+    await state.service.logout();
+    expect((await state.client.auth.getSession()).data.session).toBeNull();
+  });
+  it('leaves signup pending when the actual SDK receives an unconfirmed user without tokens', async () => {
+    const state = setup();
+    state.fetcher.mockImplementationOnce(async () => Response.json({ ...actor, email_confirmed_at: null }));
+    const result = await state.service.signupWithPassword(actor.email, 'fixture-password', 'http://localhost:5175');
+    expect(result).toEqual({ session: null, confirmationRequired: true });
+    expect((await state.client.auth.getSession()).data.session).toBeNull();
+    const [url, init] = state.fetcher.mock.calls[0];
+    expect(new URL(String(url)).pathname).toBe('/auth/v1/signup');
+    expect(JSON.parse(init.body)).toMatchObject({ email: actor.email, password: 'fixture-password' });
+  });
+  it('persists signup only when Auth actually issues tokens in a dev project without email confirmation', async () => {
+    const state = setup();
+    state.fetcher.mockImplementationOnce(async () => Response.json(tokenResponse('signup')));
+    const result = await state.service.signupWithPassword(actor.email, 'fixture-password', 'http://localhost:5175');
+    expect(result.confirmationRequired).toBe(false);
+    expect(result.session.access_token).toBe('signup-test-access-token');
+    expect((await createAuthService(state.makeClient()).restore()).user.id).toBe(actor.id);
+  });
   it('login sends create_user false to Auth and leaves the visitor unauthenticated until verification', async () => {
     const state = setup();
     await state.service.sendEmailOtp('test@example.invalid', 'login');

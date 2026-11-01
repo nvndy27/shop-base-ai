@@ -1,45 +1,65 @@
-# Roadmap có giới hạn
+# Roadmap quản lý bán hàng theo requirements CSDL
 
-M0/M1 đã triển khai **một phần backend**, kiểm thử cục bộ; schema M1 đã áp dụng và kiểm tra quyền SQL trên Supabase. M2 có catalog/search nguồn nối cloud/local; M2/M3 có thêm mã marketplace/COD và kiểm thử cục bộ, chưa áp dụng schema mới cloud hoặc nghiệm thu phiên thật. M4–M7 chưa triển khai; caption chờ sau luồng mua hàng theo yêu cầu chủ dự án.
+Cập nhật 29/10/2026 theo yêu cầu chủ dự án. Chuẩn nghiệm thu: [REQUIREMENTS](REQUIREMENTS.md), gồm tám bảng nghiệp vụ và KT01–KT28. Caption AI được loại khỏi phạm vi hiện tại. Chat, marketplace nhiều shop, thanh toán online, voucher, vận chuyển và payout không thuộc kế hoạch nghiệm thu này; giữ mã đã có, không phát triển tiếp nếu chưa được giao.
 
-| Milestone | Phạm vi | Điều kiện hoàn thành |
-|---|---|---|
-| M0 — nền dự án | Kiểm kê repo, chốt stack, scripts, env placeholders, tokens, layout responsive, fixture riêng | App chạy/build; docs phản ánh đúng stack; không secret hoặc chức năng giả thành công |
-| M1 — danh tính và quyền | Google/phone auth adapters, profile/địa chỉ, shop application/membership, admin approval tối thiểu | Login cấu hình thật hoặc blocker rõ; RLS/grants và A/B allow-deny pass |
-| M2 — catalog và search | Danh mục, SKU/ảnh/kho, seller form, kiểm duyệt, outbox/indexer, Elastic query | Search tiếng Việt; stale draft/suspended không public; event retry/version pass |
-| M3 — giỏ và đơn | Giỏ nhiều shop, quote, transaction order/suborder, reservation/expiry, COD | Không giá từ client; race SKU cuối, idempotency/cancel/release pass |
-| M4 — caption | Adapter mô hình người dùng, jobs/quota, draft edit/accept | Asset scope, timeout/schema/output/version test pass; không tự publish |
-| M5 — chat | Persistent messages, private realtime, attachment/report/block | Membership/read/write/channel/revocation tests pass; không công khai bucket |
-| M6 — payment sandbox | Provider đã chọn, webhook inbox/reconciliation/refund sandbox | Signature/ref/amount, duplicate/late/out-of-order/partial refund pass |
-| M7 — hardening trước vận hành | Audit admin, monitoring, backup/restore, secret scan, load/UI tests, review privacy/ops | Bằng chứng đạt TESTING/SECURITY; có phê duyệt riêng trước production và thu tiền thật |
+Roadmap sàn cũ và bằng chứng lịch sử được giữ tại [bản lưu](reference/ROADMAP-marketplace-20261012.md). Không quy đổi trạng thái M0–M7 thành hoàn thành các mốc mới.
 
-MVP chức năng gồm M0–M6, với tích hợp thật cần đủ cấu hình. M7 là điều kiện vận hành thật. Caption/chat có thể triển khai trước M3 nếu chủ dự án đổi ưu tiên, nhưng không bỏ kiểm quyền.
+## Trạng thái xuất phát
 
-## Tiến độ backend ngày 01/10/2026
+- Giữ pnpm, Next.js BFF, Vite/React, TypeScript/Zod, Supabase PostgreSQL/Auth và Elasticsearch; không đổi stack, lockfile hoặc tái tạo ứng dụng.
+- Tái sử dụng cách validate, RPC transaction, khóa hàng, idempotency, outbox/retry và các component form/danh sách. Nghiệp vụ cũ chỉ tái sử dụng sau khi kiểm chứng khớp requirements.
+- Chưa có customers độc lập tài khoản, warehouses hay inventory theo kho–sản phẩm. Danh mục marketplace là nhóm cố định; SKU unique theo product, chưa toàn công ty.
+- Quote/giỏ không phải đơn DRAFT. Luồng cũ giữ kho khi đặt và giảm on_hand khi shipped, khác yêu cầu trừ tồn khi CONFIRMED. Không gắn nhãn lại trạng thái cũ để coi là đạt.
+- Đã kiểm tra trong lượt rà soát 29/10: typecheck, 154 unit, 76 integration, backend build và frontend build đạt; frontend có cảnh báo bundle >500 KB. Đây là kiểm tra mã sàn hiện có, không phải kết quả KT01–KT28. Chưa chạy nghiệm thu dịch vụ thật trong lượt lập roadmap.
+- Các mốc C1–C6 bên dưới đều chưa hoàn thành. C0 chỉ hoàn thành phần baseline tài liệu; thiết kế triển khai còn chờ lát cắt tiếp theo.
 
-- **M0 một phần:** workspace pnpm, TypeScript strict, Next.js BFF API-only, contracts/domain, env placeholders, scripts và build. Không tạo layout/token/UI vì nằm ngoài nhiệm vụ.
-- **M1 một phần:** Auth `getUser` adapter theo bearer JWT; profile/địa chỉ; application pending + owner membership nguyên tử; permission shop; duyệt shop với permission từ DB, AAL2/MFA và audit. Migration, RLS/column grants, API/DB allow-deny đã chạy cục bộ.
-- **Schema M1 đã áp dụng:** dự án `rbhqkpjvbnuhhfhwrhdo`, nhánh main hiển thị Production, sau xác nhận riêng của người dùng. Sáu bảng RLS/10 policies, Auth trigger, unique index, column/RPC grants và deny checks anon/subjectless đã kiểm trực tiếp trên Supabase; không tạo user hay fixtures.
-- **Chưa nghiệm thu M1:** Google/phone login và PKCE/refresh/logout thực; SMS/provider/quota; allow/deny A/B bằng JWT Auth thật qua PostgREST/API và concurrency nhiều connection. Chưa có API quản lý nhân viên; membership cấp/thu hồi qua đường quản trị DB tin cậy, không self-service.
-- **Frontend Auth đã nối mã:** Vite frontend hiện có dùng Supabase SDK, Google PKCE/callback, SMS OTP, sessionStorage/refresh/logout, bearer API và profile/địa chỉ thật. URL env đã sửa; callback `http://localhost:5175/auth/callback` đã lưu và xác minh trên dashboard sau xác nhận riêng ngày 01/10/2026; Google/Phone trên Supabase còn disabled. 57 unit + 34 integration/SDK và hai build pass; chưa login/SMS/A/B thật. Không nâng trạng thái M1 thành hoàn tất; xem `AUTH_INTEGRATION.md`.
-- **Tiếp theo:** cấu hình ứng dụng/Auth của môi trường phát triển riêng và xác minh bằng phiên thật; frontend xác nhận chi tiết DTO và cơ chế bearer. Sau đó mới mở backend M2 theo roadmap. Không chạy lại migration M1 trên dự án đã áp dụng.
-- **Cập nhật 02/10:** theo yêu cầu chủ dự án, thêm email OTP và Cài đặt liên kết SĐT; điều kiện mua hàng kiểm ở server bằng Auth.getUser + profile active. Chưa tạo account thật hoặc kiểm SMTP/SMS; checkout vẫn chưa có API tạo đơn và không giả lập thành công. M1 chưa hoàn tất, M3 chưa triển khai; xem AUTH_INTEGRATION và D014.
-- **Cập nhật tiếp 02/10:** tách Đăng ký/Đăng nhập và chuyển phiên SDK sang localStorage theo yêu cầu nhớ thiết bị (D016), thay cơ chế sessionStorage mô tả trong bàn giao 01/10. Khôi phục/refresh/logout kiểm bằng installed-SDK fixture; chưa nghiệm thu bằng tài khoản thật.
-- **Shop trong Tài khoản (D018):** lựa chọn Người dùng/Người bán lúc đăng ký chỉ hướng onboarding; Profile có form shop pending qua RPC cũ và danh sách shop chính chủ qua GET `/me/shops`. Quyền vẫn do server/membership, M1 chưa hoàn tất và dashboard/catalog seller M2 chưa triển khai.
-- **Ưu tiên mới 02/10:** chủ dự án chọn catalog/search/cart/order/seller, bắt đầu bằng dataset mạng cho demo. Snapshot DummyJSON và fixture đơn tổng hợp đã chuẩn bị; xem DEMO_COMMERCE_DATA. Chưa seed cloud hoặc triển khai API M2/M3, không đánh dấu hoàn thành từ demo UI.
-- **Dataset lớn 02/10 (D024):** đã tải và kiểm chứng cục bộ 20.000 metadata Amazon / năm nhóm, khoảng 29,4 MB. Chưa import database/index hoặc nối frontend; xem AMAZON_CATALOG_DATA.
-- **Nhập dataset 02/10 (D025):** Elasticsearch local Docker đã có 20.000 metadata, TLS/auth và search smoke checks. Supabase schema/import SQL đã kiểm cục bộ, chưa apply môi trường đích. Frontend chưa nối search API; M2 chưa hoàn thành. Xem CATALOG_IMPORT_SETUP.
-- **Supabase cloud 03/10 (D026):** đã nhập đủ 20.000 metadata / năm nhóm vào catalog_import theo ủy quyền chủ dự án. Verification cloud count/quyền/RLS đạt; bảng kèm index 27 MB, toàn database 38 MB. Frontend/API search chưa nối bộ dữ liệu này; M2 chưa hoàn thành.
-- **Catalog/search 03/10 (D027):** đã nối API Next.js + RPC Supabase chỉ đọc + Elasticsearch key chỉ đọc; Home/chi tiết dùng dữ liệu cloud, tìm kiếm/sắp xếp/gợi ý qua Elastic và hydrate từ DB. Kiểm qua backend 3000 và proxy 5175 đạt; 122 tests và hai build đạt. Chưa deploy Vercel, chưa có seller inventory/visibility/outbox; M2/M3 chưa hoàn thành. Xem CATALOG_API.
-- **Lọc giá (D028):** API catalog và Elastic chỉ hiển thị 7.803 sản phẩm có giá; tên sản phẩm đã thu nhỏ. Giữ 20.000 bản ghi nguồn; chưa deploy bản mới lên Vercel.
-- **Marketplace/COD (D032):** đã viết sản phẩm/SKU/kho, seller APIs, kiểm duyệt, Storage pipeline, giỏ tài khoản, quote/đơn nhiều shop/hủy/expiry và worker Elastic versioned; frontend nối API. Migration 003/004 chưa apply cloud; service file/account thật chưa cấu hình/kiểm. Setup và giới hạn tại COURSE_COMMERCE. M1/M2/M3 vẫn chưa nghiệm thu đầy đủ; không triển khai tiền thật/caption trong lát cắt này.
-- **Ngôn ngữ/giá (D033):** thêm lựa chọn Việt/Anh cho catalog, bản dịch tên local và quy đổi giá hiển thị theo tỷ giá hằng ngày; giữ nguyên dữ liệu USD và giá đơn shop. Xem CATALOG_API; không nâng trạng thái M2/M3.
-- Báo cáo kiểm tra cụ thể: `BACKEND_VERIFICATION.md`. Không coi build hoặc PostgreSQL nhúng là bằng chứng production-ready.
+## Phương án triển khai đề xuất
 
-## Sau MVP, chỉ khi được giao
+Bổ sung module bán hàng nội bộ trong cùng repository, đề xuất schema `sales`, API `/api/v1/sales/*` và giao diện `/internal/*`; tên chính thức được chốt ở C0 sau khi rà mã. Tách bảng và luồng nội bộ khỏi `commerce` để không đổi nghĩa đơn, tồn và dữ liệu marketplace đang có. Không nhân bản Auth hoặc tạo app mới. Không tự chuyển dữ liệu cũ hay gán sản phẩm nguồn thành hàng có tồn.
 
-Voucher nhiều điều kiện, carrier integration, returns/disputes, settlement/payout, dashboard sâu. Chốt chính sách và hợp đồng trước tính năng tiền thật. Không đồng nhất dashboard doanh thu với hệ thống kế toán/escrow.
+Tám bảng nghiệp vụ trong module mới: categories, products, customers, warehouses, inventory, orders, order_items, stock_movements. Bảng kỹ thuật outbox/quyền nếu cần không thay thế tám bảng này và phải giải thích riêng. Thiết kế và migration bổ sung; không sửa migration đã áp dụng, không reset dữ liệu. Khi cần rollback, tắt điểm vào module mới và forward-fix; không xóa lịch sử đơn hoặc kho.
 
-## Definition of done cho mỗi nhiệm vụ
+## Các mốc và điều kiện nghiệm thu
 
-Thay đổi trong phạm vi; có loading/error/empty thích hợp; server authz/input validation; migration + quyền khi đổi DB; tests bất biến bị tác động; typecheck/build/checks thực chạy; docs quyết định cập nhật; báo phần chưa xác minh. Chưa có credentials thì chỉ hoàn thành phần adapter/contract, không hoàn thành tích hợp thật.
+| Mốc | Kết quả cần bàn giao | Điều kiện hoàn thành | Ca nghiệm thu |
+|---|---|---|---|
+| C0 — Chốt baseline và thiết kế | Requirements nguồn, bản đồ gap, ERD/DDL đề xuất, API và ma trận quyền tối thiểu | Chốt đường dẫn/module, kiểu tiền/giới hạn tổng, cách so reason khi retry, kế hoạch migration và chính sách index nội bộ; không còn xung đột chưa được ghi nhận | Danh sách đủ KT01–KT28 |
+| C1 — Dữ liệu nền | Migration và API danh mục, sản phẩm, khách, kho; chuẩn hóa dùng chung; dữ liệu mẫu có khai báo | SKU/mã/phone UNIQUE ở DB; CRUD và ngừng/xóa đúng tham chiếu; khách không cần Auth; RLS/grants và allow/deny đạt | KT01–KT06, phần dữ liệu nền KT21–KT22 |
+| C2 — Tồn theo kho và lịch sử | Phân bổ tồn 0, nhập/xuất/điều chỉnh, tra cứu biến động | Khóa cặp kho–sản phẩm; tồn và ledger cùng transaction; request_key chống lặp/xung đột; lịch sử không sửa/xóa; kho ngừng bị chặn | KT20, KT27; phần kho KT21–KT22, chuẩn bị KT28 |
+| C3 — Đơn nháp và snapshot | CRUD đơn DRAFT và dòng, chọn khách/kho, sửa người nhận, chủ động lấy giá mới | Ít nhất một dòng, không trùng sản phẩm; nháp không giữ/trừ kho; snapshot không tự đổi theo dữ liệu nguồn; tổng tính từ dòng, không lưu cột tổng | KT07–KT08, KT16–KT17, KT26; xóa nháp KT21 |
+| C4 — Xác nhận, hoàn tất và hủy | State machine và transaction trừ/hoàn tồn, SALE/CANCEL | CONFIRMED trừ đúng kho một lần; COMPLETED không trừ thêm; hủy xác nhận hoàn một lần; khóa nội dung sau xác nhận; rollback toàn bộ và cạnh tranh đúng trên PostgreSQL thật | KT09–KT15, KT18–KT19, KT28; hoàn tất KT16, KT21–KT22 |
+| C5 — Elasticsearch nội bộ | Ba index sản phẩm/khách/đơn, query, outbox/retry, lệnh nạp và nạp lại | Ưu tiên mã chính xác, phone chuẩn hóa, phân trang, detail đọc DB; ES lỗi không hủy nghiệp vụ; reindex hai lần không trùng/stale; kiểm quyền ở backend | KT23–KT25 |
+| C6 — Giao diện và nghiệm thu tổng | Màn nội bộ đầy đủ, E2E và hướng dẫn khởi tạo/demo/khôi phục index | Chạy độc lập đủ 28 ca và lưu actual/expected; UI có loading/error/empty; không lộ PII/secret; không dùng mock thành công để nghiệm thu | KT01–KT28 đầy đủ |
+
+C1 → C2 → C3 → C4 → C5 → C6 là thứ tự ưu tiên. Mỗi C1–C5 bổ sung giao diện tối thiểu cho phần vừa làm để kiểm tra sớm; C6 nối luồng và hoàn thiện, không dồn toàn bộ UI đến cuối. Không cần hoàn thành chat, AI, thanh toán hoặc onboarding shop trước C1.
+
+## Những quy tắc phải giữ khi triển khai
+
+- Giá VND nguyên, không âm, đúng NUMERIC(14,0); không tiếp tục giới hạn giá marketplace 1.000–100.000.000 như yêu cầu mới. Số lượng nguyên, kiểm giới hạn và tràn tổng ở server.
+- Khóa chính ghép của inventory là warehouse_id + product_id; order_items là order_id + product_id. FK lịch sử RESTRICT/NO ACTION; không cascade xóa lịch sử.
+- Đơn DRAFT chưa giữ kho. Xác nhận kiểm lại khách, kho, sản phẩm và danh mục active; thiếu một dòng rollback cả đơn. Sau xác nhận khóa khách/người nhận/kho/dòng/giá.
+- SALE/CANCEL liên kết đúng kho, sản phẩm, lượng của đơn; unique có điều kiện theo order/product/type, request_key riêng mỗi biến động. Hủy nháp không tạo CANCEL.
+- Mọi thao tác kho dùng cùng chiến lược khóa, thứ tự khóa ổn định; retry không tạo side effect mới. Thử lỗi giữa các bước để chứng minh rollback, không chỉ kiểm kết quả thành công.
+- Tổng đơn và tên sản phẩm index lấy từ chi tiết snapshot, không lấy dữ liệu sản phẩm hiện tại. Elasticsearch không quyết định giá, tồn hoặc trạng thái đơn.
+- Khách hàng nghiệp vụ không cần tài khoản. Giữ bảo vệ server/RLS cho dữ liệu riêng hiện có; yêu cầu không bắt buộc login không có nghĩa mở API nội bộ hoặc tắt RLS.
+
+## Điểm cần giải quyết trước phần phụ thuộc
+
+1. **Index riêng tư:** requirements yêu cầu tìm khách/đơn nội bộ, còn AGENTS hiện giới hạn ES ở dữ liệu công khai. Đề xuất index và credentials riêng, chỉ BFF được truy cập, không chứa chat/token. Trước C5 cần chủ dự án cho phép và cập nhật quy tắc nguồn tương ứng; tài liệu này chưa sửa AGENTS và chưa cho phép đưa PII vào ES. C1–C4 vẫn tiến hành được.
+2. **Giới hạn số và retry:** đề xuất số lượng theo INTEGER với trần nghiệp vụ rõ ràng, tổng tính chính xác và chặn vượt ngưỡng đã chốt. Đề xuất reason là một phần nội dung so sánh idempotency sau chuẩn hóa; đây là lựa chọn triển khai cần ghi quyết định ở C0, không sửa nghĩa requirements nguồn.
+3. **Môi trường:** dùng Supabase local/dev riêng. Rà trạng thái và history trước apply; thiếu Docker/credential thì làm schema/contracts/test độc lập, ghi rõ phần tích hợp chưa kiểm chứng. Không chạy runner cũ tạo đơn marketplace để chứng minh luồng sales đã đạt.
+
+## Lát cắt nên thực hiện ngay
+
+**C0 kỹ thuật + C1 backend:** rà hướng dẫn apps/web, thiết kế tám bảng và quyền, chốt hợp đồng chuẩn hóa; thêm migration bổ sung cho bốn bảng danh mục/sản phẩm/khách/kho và API CRUD, kèm kiểm UNIQUE đồng thời, validation và allow/deny. Kết thúc bằng bằng chứng KT01–KT06 và phần nền của KT21–KT22. Chưa triển khai toàn bộ roadmap trong cùng một nhiệm vụ.
+
+## Điều kiện hoàn thành
+
+Mỗi mốc ghi rõ mã đã có, test đã chạy và môi trường kiểm tra. Tests PGlite không thay test nhiều connection PostgreSQL; build không thay test quyền. Mốc chỉ hoàn thành khi đạt điều kiện trong bảng; ca chưa chạy phải ghi chưa kiểm chứng. Nghiệm thu đồ án khác điều kiện production: deploy, thao tác dữ liệu thật và thu tiền vẫn cần ủy quyền riêng.
+
+
+## Tiến độ lát cắt 29/10/2026 — C0 kỹ thuật + C1 backend
+
+- C0 **hoàn thành một phần**: đã đối chiếu requirements, chốt module/schema/API, thiết kế tám bảng/quan hệ, quyền, limits và retry; xem [SALES_DESIGN](SALES_DESIGN.md). Còn chờ quyết định index riêng tư xung đột AGENTS trước C5.
+- C1 **đã triển khai, chưa hoàn thành nghiệm thu**: migration bổ sung bốn bảng nền, contracts/RPC/API CRUD/pagination/active/delete và test cục bộ. KT01–KT06 phần nền và KT21–KT22 phần category/active có bằng chứng PGlite/HTTP; concurrency PostgreSQL nhiều connection và Supabase thật chưa kiểm do Docker socket không truy cập được. Không gộp phần số lượng đơn/lịch sử chưa tồn tại vào kết quả đạt.
+- Bước tiếp theo: chạy migration trên dev PostgreSQL/Supabase được phép sau rà history, kiểm allow/deny qua Auth/PostgREST và race hai connection cho code/SKU/phone; hoàn tất C1 trước khi mở C2. Không tự triển khai C2–C6 trong lượt này. Chi tiết kết quả [TESTING](TESTING.md), quyết định D040.

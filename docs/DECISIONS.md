@@ -219,3 +219,92 @@ Nhiệm vụ và milestone; file thay đổi; tiêu chí đạt/chưa đạt; ch
 - Sửa Email signInWithOtp truyền emailRedirectTo `/auth/callback` theo origin hiện tại; giữ PKCE cho link mới.
 - Root route xử lý Auth return thay vì bỏ qua link Confirm khi về trang chủ. Link email cũ chỉ nhận fragment signup/magiclink bearer, kiểm Auth.getUser/email_confirmed_at trước lưu SDK session và đối chiếu user ID; không token query, recovery hoặc cấp quyền bằng payload.
 - Callback xóa thông tin xác thực khỏi URL và không log/echo. SDK giữ phiên trên cùng browser/origin; 66 tests liên quan/typecheck/frontend build đạt và browser error-return smoke đạt. Thử gửi link thật một lần qua frontend bị quota email Supabase chặn; chưa nghiệm thu email thật end-to-end. Không thay cloud config/deploy hoặc bỏ giới hạn server.
+
+## D036 — Chat M5 lát cắt 1: schema, quyền dẫn xuất và API tin nhắn (05/10/2026)
+
+- Bối cảnh: chủ dự án yêu cầu bắt đầu M5. Ba quyết định đã chốt: một luồng cho mỗi cặp (người mua, shop); chia M5 thành ba lát cắt kiểm được; chặn gửi mới nhưng giữ lịch sử đọc được. Lát cắt 1 chỉ gồm tin nhắn văn bản.
+- Quyết định schema `chat`: `conversations` (unique theo buyer_id, shop_id; `context_product_id`/`context_order_id` nullable), `messages` (kind chỉ 'text', body 1–2000 ký tự sau trim, `seq` identity để phân trang và đọc tuần tự, unique theo conversation_id/sender_id/client_message_id), `conversation_members` chỉ lưu con trỏ đọc `last_read_seq`.
+- Quyền thành viên **dẫn xuất**, không vật chất hóa: là thành viên khi là buyer của luồng hoặc là thành viên shop đang hoạt động có quyền `orders:read`. Phương án dùng bảng thành viên + trigger đồng bộ đã bị loại vì có thể lệch trạng thái; cách dẫn xuất khiến việc thu hồi `shop_members.active` cắt đọc/ghi ngay trong cùng transaction.
+- Không cấp quyền cột `conversations.buyer_id` và `messages.sender_id` cho `authenticated`, nên seller không thể đọc user id của người mua qua PostgREST. DTO trả `mine` (tự tính ở server) và `counterpart_name`. Output Zod dùng `strictObject` để lộ field lạ phải fail (503) thay vì bị loại âm thầm.
+- Chỉ `public.chat(p_op, p_input)` là đường ghi; không có policy insert/update/delete và không cấp DML trên bảng. `private.can_post_conversation` là điểm mở rộng cho chặn (block) và tệp đính kèm ở lát cắt sau; gửi bị chặn khi shop không còn `active`/`suspended` nhưng lịch sử vẫn đọc được.
+- API BFF: `GET/POST /api/v1/chat/conversations`, `GET /api/v1/chat/conversations/{id}`, `POST .../{id}/messages`, `POST .../{id}/read`; mọi route đều yêu cầu bearer token và đi bằng JWT người dùng để RLS có hiệu lực. `client_message_id` bắt buộc để gửi lại không nhân bản tin nhắn.
+- Frontend: viết lại `Chat.jsx` vốn còn dữ liệu giả và thiếu import `useEffect`/`useRef` (trang crash khi mở). Trang nối API thật, sửa tên class CSS, thêm nút "Chat với người bán" ở chi tiết sản phẩm trỏ `/chat?shop=<id>`.
+- Kiểm chứng: `tests/integration/chat.test.ts` 11 test (allow/deny thành viên, thu hồi nhân viên, shop đóng, idempotency, con trỏ đọc, phân trang, rò rỉ cột) và `tests/unit/chat.test.ts` 7 test (định tuyến, chặn đổi phạm vi, xác thực, kiểm output). Typecheck, 122 unit, 66 integration và build Next/Vite đều đạt.
+- Chưa làm và chưa tuyên bố: chưa áp dụng migration lên Supabase cloud (cần dự án dev riêng và uỷ quyền riêng); chưa có realtime kênh riêng (lát cắt 2), tệp đính kèm/báo cáo/chặn (lát cắt 3); chưa nghiệm thu phiên đăng nhập thật. M5 chưa hoàn tất.
+- Thay đổi an toàn: ngừng định tuyến `/api/v1/chat` rồi forward-fix; không xóa `chat.messages` để rollback vì mất lịch sử.
+
+### Sửa sau rà soát (05/10/2026) — D036 vẫn giữ nguyên quyết định, sửa phần triển khai
+
+Người rà soát tìm được 5 lỗi thật; cả 5 đã được kiểm chứng bằng cách tái hiện rồi mới sửa.
+
+1. **Lịch sử chat không tải được.** `createApi` chỉ chấp nhận `/^\/api\/v1\/[A-Za-z0-9/_-]+$/`, nên `?limit=30` bị chặn trước khi gửi request. Guard nay cho phép query string với charset giới hạn (`A-Za-z0-9_.%&+=-`); fragment, khoảng trắng, dấu nháy và URL tuyệt đối vẫn bị từ chối. Test mới khẳng định cả hai chiều.
+2. **Vòng lặp reload cấu trúc.** `useCommerceResource` trả object mới mỗi render, `reload` là closure mới, nên `markRead → loadThread → effect` chạy lại liên tục và effect lại setState. Nay `reload` bọc `useCallback` và object trả về bọc `useMemo`; các dependency trong `Chat.jsx` chỉ còn giá trị ổn định.
+3. **Đọc bảng trực tiếp vẫn hỏng.** Biểu thức policy được đánh giá bằng quyền của role đang truy vấn, nên `authenticated` cần `EXECUTE` trên `private.is_conversation_member(uuid)`; trước đó hàm này bị revoke khỏi `authenticated` và PostgREST trả `permission denied for function is_conversation_member`. Đã cấp `EXECUTE` cho đúng hàm này (hàm chỉ trả lời "người gọi có phải thành viên không", không lộ dữ liệu). Test cũ chỉ kiểm nhánh **deny** nên pass rỗng vì sai lý do; nay có test **allow** đọc cột được cấp cho cả người mua lẫn người bán, kèm deny cho người ngoài và cho `staff`.
+4. **Shop đóng làm người bán mất lịch sử.** `is_conversation_member` dùng `has_shop_permission(..., 'orders:read')` vốn có cổng trạng thái shop, mâu thuẫn với chính quyết định "giữ lịch sử đọc được". Nay thêm `private.is_shop_chat_member(shop_id)`: ánh xạ đúng hàng `orders:read` của ma trận quyền (`owner`, `fulfillment`) nhưng **bỏ cổng trạng thái**. Cổng trạng thái chỉ còn ở `can_post_conversation`. `chat_conversation_list` cũng đổi sang hàm mới, nếu không luồng của shop đóng sẽ biến mất khỏi danh sách. Test cũ chỉ kiểm phía người mua; nay kiểm cả hai phía.
+5. **RPC nhận `body` là object.** `->>` trên JSON object trả về dạng text của nó, nên gọi RPC trực tiếp có thể lưu `{"a":1}` thành nội dung tin nhắn. Nay kiểm `jsonb_typeof(p_input -> 'body') = 'string'` trước khi đọc; validate ở BFF không phải là ranh giới bảo mật.
+
+Kiểm chứng: 13 integration + 19 unit cho chat (12 test frontend mới cho đường dẫn/tải/chuyển hội thoại và trạng thái luồng). Tổng 134 unit + 68 integration, typecheck và hai build đạt; oxlint vẫn 9 cảnh báo nền, không phát sinh cảnh báo mới. Mỗi lỗi đều được xác nhận bằng cách tạm bỏ bản sửa và thấy test đỏ đúng thông điệp, rồi khôi phục.
+
+Chưa kiểm chứng: chưa có test render React thật (repo không có môi trường DOM và không tự thêm dependency), nên bản sửa vòng lặp reload được xác nhận bằng dependency ổn định + build/lint chứ chưa bằng test render. Migration vẫn **chưa áp dụng cloud**.
+
+### Sửa race condition chuyển hội thoại (05/10/2026) — D036 vẫn giữ nguyên quyết định
+
+Ba lỗi race còn lại của frontend, đều do state/response không gắn với hội thoại đã phát sinh request:
+
+1. **Phản hồi tải về muộn ghi đè hội thoại mới.** Mở A (tải chậm) rồi chuyển sang B: `loadThread` của A không có gì đánh dấu là đã lỗi thời, nên khi A trả về muộn nó ghi thẳng vào `thread` đang hiển thị B. Nay mọi kết quả async phải qua `stale()`: `aliveRef` (unmount), `loadTokenRef` (chỉ lượt tải mới nhất thắng), `activeIdRef` (hội thoại đang mở). `select()` là **điểm duy nhất** đổi hội thoại, tăng token và abort controller ngay trong sự kiện click, đồng bộ trước khi React render lại; fetch dùng `AbortController` truyền xuống `commerceApi`. `AbortError` là kết quả mong đợi khi chuyển đi, không phải lỗi của luồng.
+2. **Kết quả gửi rơi vào khung hội thoại khác.** Gửi ở A rồi chuyển sang B trước khi request xong: `setThread(threadAppended(...))` không kiểm hội thoại nên tin nhắn của A hiện trong khung B; state `draft`/`sending` dùng chung nên lần gửi ở A còn xoá bản nháp đang soạn ở B và khoá ô nhập của B. Nay `drafts`, `sending` và `pendingRef` đều keyed theo `conversation_id`; kết quả gửi chỉ được append khi `activeIdRef.current === cid`; nháp chỉ bị xoá khi nháp hiện tại vẫn đúng đoạn text đã gửi; `busy`/`disabled` chỉ áp cho đúng hội thoại đang gửi.
+
+3. **Một tin hiển thị hai lần khi quay lại hội thoại đang gửi.** Gửi ở A → sang B → quay lại A trước khi phản hồi gửi về: lượt tải lại A đã chứa hàng vừa lưu, rồi phản hồi gửi (cùng `id` server) lại được append, nên bong bóng trùng và React báo trùng key. Đây là trùng ở **UI**; `client_message_id` unique ở DB vẫn chặn hai hàng. Nay `threadPage` và `threadAppended` hợp nhất theo `id` (`mergeUnique`), giữ lần xuất hiện đầu; trả về đúng mảng cũ khi không thêm gì để không gây render thừa. Việc hợp nhất theo `id` cũng khiến giả định "trang cũ không chồng lấn" không còn là điều kiện sống còn.
+
+Giữ nguyên: `pendingKey` tái dùng `client_message_id` khi retry đúng đoạn text cũ, nên thử lại sau khi mất phản hồi không nhân bản tin nhắn và không tự gửi lại mutation; vòng lặp reload không quay lại (dependency vẫn chỉ gồm giá trị ổn định).
+
+Kiểm chứng: `tests/e2e/chat-race.mjs` — harness Playwright chạy trên trình duyệt thật với fixture khai báo ngay trong file (phiên Supabase giả trong localStorage, chặn `**/auth/v1/**` và `**/api/v1/**`, `plan` điều khiển độ trễ từng hội thoại). 7 kịch bản: phản hồi A muộn, gửi ở A rồi chuyển B, phân trang ở A rồi chuyển B, đóng giữa lúc tải, retry sau mất phản hồi, bản nháp ở B sống sót, A→B→A khi đang gửi. Trước khi sửa nhóm race: **2/6** (kịch bản 1, 2, 3, 6 đỏ, đúng triệu chứng); riêng lỗi trùng tin, khi tạm bỏ `mergeUnique`: kịch bản 7 đỏ với **2 bong bóng** và React báo `Encountered two children with the same key ... srv-1`. Sau khi sửa: **7/7**. Kèm `pnpm check` (137 unit + 68 integration + typecheck + build Next) và build Vite đạt; oxlint vẫn 9 cảnh báo nền, không phát sinh cảnh báo mới.
+
+Chưa kiểm chứng: harness cần Vite dev server đang chạy và một trình duyệt thật, **không** nằm trong `pnpm check`; Playwright không phải dependency của dự án nên không đổi `package.json`/lockfile — chạy tay bằng `PLAYWRIGHT_MODULE_PATH` trỏ tới một `node_modules` có Playwright và dùng Chrome hệ thống (`channel: 'chrome'`). Chưa có test render React tự động trong CI. Migration vẫn **chưa áp dụng cloud**; chưa có realtime.
+
+### Chuẩn bị nghiệm thu cloud dev (05/10/2026)
+
+Chủ dự án cho phép thực hiện hướng dev → nghiệm thu JWT thật → realtime sau nghiệm thu. Phiên này không có cấu hình dev/service-role, Docker socket không truy cập được và quyền trình duyệt Supabase bị từ chối; không né chặn hoặc sửa production. Thêm `scripts/verify-chat-dev.mjs`, guard project dev có test và `docs/CHAT_DEV_ACCEPTANCE.md`: tạo fixture riêng, Auth cấp JWT thật, kiểm allow/deny/retry/read/revocation/shop đóng; không log secret và không tự xóa fixture. **Chưa chạy cloud, chưa commit checkpoint và chưa triển khai realtime** vì cổng nghiệm thu chưa đạt.
+
+Kiểm tra cục bộ phiên này: `pnpm check` đạt (141 unit + 68 integration, typecheck và build Next), build Vite đạt với cảnh báo bundle >500 kB. Runner qua `node --check`; chạy thiếu cấu hình trả exit 1 trước khi gọi network/tạo fixture, đúng thiết kế. Harness race hỗ trợ `CHAT_E2E_PROJECT_REF`; chưa chạy lại browser harness trong phiên này.
+
+### Rà chuỗi migration và kết nối môi trường dev (05/10/2026)
+
+Theo ủy quyền tiếp tục, đã rà đủ 7 migration phụ thuộc và thêm `tests/integration/migration-chain.test.ts`: áp dụng theo thứ tự trên database local trống, với Auth/Storage emulation riêng. Thêm `supabase/tests/verify_chat_deployment.sql` không tạo fixture hoặc thay quyền để kiểm deployment sau migration; test xác nhận verifier từ chối khi cột sender_id bị lộ hoặc RLS bị tắt. Không sửa migration cũ hoặc lịch sử cloud.
+
+Đã kiểm lại 7/7 ca browser race bằng fixture khai báo; `pnpm check` sau bổ sung đạt 141 unit + 69 integration, typecheck và build Next; build Vite cũng đạt (cảnh báo bundle >500 kB). Browser fixture không chứng minh JWT cloud.
+
+Trạng thái truy cập mới: CLI Orca và trình duyệt tích hợp hoạt động ngoài sandbox; dashboard Supabase ở trang đăng nhập. Chrome đang chạy nhưng Browser Use không kết nối được vì remote debugging chưa bật. Chưa có cấu hình project dev riêng; đang chờ chủ dự án bật kết nối hoặc đăng nhập trực tiếp. Chưa áp migration cloud, tạo fixture thật, commit checkpoint hoặc triển khai realtime. M5 chưa hoàn tất.
+
+
+## D037 — Email + mật khẩu để đơn giản hóa login (12/10/2026)
+
+Chủ dự án chọn email + mật khẩu tự đăng ký, giữ Supabase. Trang `/auth` mặc định Đăng nhập, thêm Đăng ký/nhập lại mật khẩu, bỏ các lựa chọn Google/phone/OTP. Dùng SDK signInWithPassword/signUp và vòng đời phiên hiện có; không thêm PHP, dependency, database tài khoản riêng hoặc cấp quyền bằng metadata.
+
+SignUp không có phiên chỉ hiện hướng dẫn xác nhận, không giả thành công; mật khẩu không được lưu vào storage/log. Muốn bỏ email xác nhận cần tắt Confirm Email trên project dev riêng, chưa thay cloud trong lần này. Tài khoản OTP cũ có thể chưa có mật khẩu; chưa thêm UI reset. Server vẫn kiểm actor/RLS và SĐT xác minh trước mua hàng; bỏ SMS checkout cần quyết định riêng, không tự mở quyền.
+
+Kiểm chứng: 75 tests auth/password/SDK/callback/cooldown đạt, typecheck và build Vite đạt; lint hai file thay đổi không báo lỗi/cảnh báo. SDK tests dùng transport/storage fixture, không chứng minh login cloud. Build còn cảnh báo bundle >500 kB. Chưa tạo tài khoản thật, gửi email, sửa cloud, migration hoặc deploy. Thứ tự backend tiếp theo được ghi tại ROADMAP; M1 vẫn chưa hoàn tất.
+
+
+## D039 — Ưu tiên requirements CSDL và loại caption AI khỏi phạm vi hiện tại (29/10/2026)
+
+Chủ dự án yêu cầu lấy requirements của project csdl làm chuẩn, xây roadmap mới và đề xuất hướng tiếp theo. Baseline được chọn là `csdl-requirements.docx`; giữ nguyên bản sao tại `docs/reference/csdl-requirements.docx` cùng SHA-256 trong `docs/REQUIREMENTS.md`. Bản GR2 dùng đối chiếu, không tự trộn thành yêu cầu mới.
+
+Phạm vi hiện tại là bán hàng nội bộ một công ty, khách độc lập tài khoản, nhiều kho, một kho xuất mỗi đơn, tám bảng nghiệp vụ và KT01–KT28. Caption AI được đưa ra ngoài phạm vi; chat, marketplace mở rộng, payment và vận chuyển dừng ưu tiên, giữ mã cũ. Roadmap C0–C6 thay M0–M7; roadmap cũ được lưu nguyên trạng, không xóa lịch sử hoặc nâng trạng thái nghiệm thu.
+
+Đề xuất kỹ thuật, chưa phải đã triển khai: module riêng trong cùng repo, schema sales, API /api/v1/sales và UI /internal, tái sử dụng stack/components/Auth và mẫu transaction/idempotency/outbox. C0 chốt thiết kế trước migration. Không đổi semantics của commerce tại chỗ, không chuyển dữ liệu, reset DB, sửa migration đã áp dụng hoặc đổi lockfile. Đơn nháp mới không giữ kho; xác nhận trừ tồn và tạo SALE; hủy xác nhận hoàn kho và tạo CANCEL, đúng requirements.
+
+Index khách/đơn nội bộ xung đột quy tắc AGENTS chỉ index công khai. Ghi blocker trước C5, đề xuất index/credentials nội bộ riêng; chưa sửa file hướng dẫn hoặc cho phép index PII. C1–C4 độc lập tiếp tục được. Giới hạn tổng tiền/số lượng và so sánh reason khi retry cần chốt trong C0; không âm thầm bổ sung vào bản requirements gốc.
+
+Tài liệu đã đổi: README, OVERVIEW, FEATURES, ROADMAP; đánh dấu phạm vi cũ trong DATABASE/API/TESTING/INTEGRATIONS/SECURITY/DESIGN/CODEBASE. Không thay mã ứng dụng hoặc migration trong nhiệm vụ này. Baseline kiểm tra từ lượt rà soát cùng ngày: typecheck, 154 unit, 76 integration và hai build đạt; không coi là nghiệm thu KT01–KT28. Kiểm lượt tài liệu: đối chiếu nội dung nguồn, đủ tám bảng/28 ca và liên kết nội bộ; không chạy lại test ứng dụng vì chỉ đổi tài liệu.
+
+
+## D040 — Chốt sales C0 kỹ thuật và triển khai backend C1 (29/10/2026)
+
+Chọn module `apps/web/src/server/sales`, schema sales, API `/api/v1/sales/*` trong Next BFF hiện có. Tái sử dụng Supabase Auth/userClient, Zod, bounded parseBody và lỗi domain; không tái sử dụng bảng/state machine commerce sai nghiệp vụ. Thiết kế đủ tám bảng, quyền staff và trần số/retry reason tại [SALES_DESIGN](SALES_DESIGN.md); đây là lựa chọn triển khai, giữ nguyên requirements nguồn.
+
+Đã thêm migration bốn bảng nền và staff; normalize/validate cả BFF và DB, UNIQUE/FK/RLS/grants/RPC, CRUD/detail/phân trang/active/delete theo dữ liệu hiện có. Không thêm UI hoặc C2–C6. Không seed staff tự động, không cấp quyền từ metadata. Chưa apply Supabase, không đổi production/history/lockfile và không chuyển dữ liệu marketplace.
+
+C0 một phần: quyết định index khách/đơn PII còn chờ chủ dự án xử lý xung đột AGENTS trước C5. C1 chưa hoàn thành nghiệm thu: thiếu PostgreSQL nhiều connection và Supabase thật, KT06/21/22 phần phụ thuộc đơn/tồn để mốc sau. Docker socket bị từ chối kể cả ngoài sandbox; thiếu psql/initdb. Không coi Promise.all trên PGlite là cạnh tranh PostgreSQL. Xem [TESTING](TESTING.md) cho expected/actual và giới hạn.
+
+Kiểm tra đã chạy: typecheck đạt; 154 unit đạt; backend Next build đạt. Integration cuối gồm 84 ca (8 ca sales) và chuỗi migration chạy PGlite; xem kết quả cuối TESTING. Đã rà diff phần thay đổi, không đổi requirements nguồn hoặc lockfile, giữ thay đổi có sẵn. Không commit/push/deploy.

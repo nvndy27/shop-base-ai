@@ -64,6 +64,7 @@ function ProductDetailContent({ product, backLink }) {
         <div className="product-actions"><div className="action-buttons">
           <button className="button-primary" disabled={busy||!variant||quantity<1||!Number.isInteger(quantity)||quantity>Math.min(99,variant.available)} onClick={()=>add()}>{t("Thêm vào giỏ")}</button>
           <button className="button-secondary" disabled={busy||!variant||quantity<1||!Number.isInteger(quantity)||quantity>Math.min(99,variant.available)} onClick={()=>add(true)}>{t("Mua ngay")}</button>
+          {product.shopId&&<Link className="button-outline" to={`/chat?shop=${product.shopId}`}>{t("Chat với người bán")}</Link>}
         </div>{!variant&&<p>{t("Chưa có phiên bản để đặt mua.")}</p>}{message&&<p role="status">{message} <Link to="/cart">{t("Xem giỏ hàng")}</Link></p>}{actionError&&<p role="alert">{actionError}</p>}</div>
         {product.rating != null && <div className="product-rating">⭐ {product.rating}/5</div>}
       </div>
